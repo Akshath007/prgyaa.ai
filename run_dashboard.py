@@ -17,3 +17,4 @@ if __name__ == "__main__":
     print("  📦 Models: Bodhan 1.2B, Sarvam v1, Gemini 3.5, Nemotron, Whisper, Qwen2")
     print("=" * 72)
     uvicorn.run("pragyaa_dashboard.app:app", host="0.0.0.0", port=8501, reload=True)
+
