@@ -1046,3 +1046,383 @@ body {
     height: 230px;
     position: relative;
 }
+
+
+/* ========================================================
+   MOBILE & TABLET RESPONSIVE STYLES
+   ======================================================== */
+.top-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+.sidebar-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 34px;
+    height: 34px;
+    padding: 7px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease;
+}
+
+.btn-hamburger:hover {
+    background: var(--bg-hover);
+}
+
+.btn-hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-main);
+    border-radius: 2px;
+}
+
+.btn-close-sidebar {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-main);
+    border-radius: var(--radius-sm);
+    font-size: 1.2rem;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-model-bar {
+    display: none;
+}
+
+.mobile-model-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 9999px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.mobile-model-chip.active {
+    background: var(--text-main);
+    color: #ffffff;
+    border-color: var(--text-main);
+}
+
+.chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.mobile-table-hint {
+    display: none;
+}
+
+@media (max-width: 850px) {
+    body {
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100vh;
+    }
+
+    body.sidebar-open-locked {
+        overflow: hidden !important;
+    }
+
+    .app-layout {
+        flex-direction: column !important;
+        height: auto !important;
+        min-height: 100vh;
+        width: 100% !important;
+        overflow-x: hidden;
+    }
+
+    /* Off-canvas Sliding Sidebar Drawer */
+    .sidebar {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 285px !important;
+        max-width: 85vw;
+        z-index: 1000 !important;
+        transform: translateX(-100%);
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 6px 0 28px rgba(15, 23, 42, 0.25);
+        background-color: var(--bg-surface);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .btn-hamburger {
+        display: flex !important;
+    }
+
+    .btn-close-sidebar {
+        display: flex !important;
+    }
+
+    .btn-hide-mobile {
+        display: none !important;
+    }
+
+    .top-nav {
+        height: 52px;
+        padding: 0 12px;
+    }
+
+    .nav-breadcrumbs {
+        font-size: 0.74rem;
+    }
+
+    .crumb-dim, .crumb-slash {
+        display: none !important;
+    }
+
+    .crumb-active {
+        font-size: 0.78rem;
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 140px;
+    }
+
+    .scroll-area {
+        padding: 12px 10px 40px 10px !important;
+        gap: 12px !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    /* Swipeable Horizontal Model Switcher on Phone */
+    .mobile-model-bar {
+        display: flex !important;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 2px 2px 8px 2px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .mobile-model-bar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .model-hero {
+        padding: 14px 16px;
+    }
+
+    .hero-title-group h1 {
+        font-size: 1.22rem;
+    }
+
+    .hero-desc {
+        font-size: 0.78rem;
+        line-height: 1.45;
+    }
+
+    /* 2-Column Responsive Metric Cards */
+    .metrics-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .metric-card {
+        padding: 10px 12px;
+    }
+
+    .m-title {
+        font-size: 0.64rem;
+    }
+
+    .m-sub-badge {
+        font-size: 0.58rem;
+        padding: 1px 4px;
+    }
+
+    .m-val {
+        font-size: 1.35rem;
+    }
+
+    .m-hint {
+        font-size: 0.63rem;
+    }
+
+    /* Master Table with Mobile Swipe Prompt & Sticky First Column */
+    .mobile-table-hint {
+        display: block !important;
+        font-size: 0.70rem;
+        font-weight: 600;
+        color: var(--accent-blue);
+        background: var(--accent-blue-soft);
+        padding: 6px 10px;
+        border-radius: var(--radius-sm);
+        margin-bottom: 8px;
+        text-align: center;
+        border: 1px dashed #bfdbfe;
+    }
+
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+        border-radius: var(--radius-md);
+    }
+
+    .master-table th:first-child,
+    .master-table td:first-child {
+        position: sticky;
+        left: 0;
+        background-color: var(--bg-surface);
+        z-index: 2;
+        box-shadow: 2px 0 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .master-table th:first-child {
+        background-color: var(--bg-subtle);
+        z-index: 3;
+    }
+
+    /* Audio Player Responsive Stack */
+    .player-box {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        padding: 12px !important;
+    }
+
+    .player-left {
+        min-width: 0 !important;
+        gap: 12px !important;
+    }
+
+    .btn-play {
+        width: 44px;
+        height: 44px;
+    }
+
+    .audio-name {
+        font-size: 0.85rem;
+    }
+
+    .audio-context {
+        font-size: 0.70rem;
+    }
+
+    .player-right {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .audio-kpi-bar {
+        gap: 6px;
+    }
+
+    .kpi-pill {
+        padding: 4px 8px;
+        font-size: 0.67rem;
+    }
+
+    .audio-switch-pills {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+    .audio-switch-pills::-webkit-scrollbar { display: none; }
+
+    /* Transcripts on Phone */
+    .transcript-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .transcript-text-body {
+        height: 290px !important;
+        padding: 10px !important;
+        font-size: 0.82rem !important;
+    }
+
+    .dialogue-turn {
+        padding: 8px 10px !important;
+    }
+
+    .turn-text {
+        font-size: 0.82rem;
+    }
+
+    .turn-time {
+        font-size: 0.66rem;
+        padding: 3px 7px;
+    }
+
+    /* Metric Tabs on Phone */
+    .tabs-header {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 4px !important;
+    }
+    .tabs-header::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+        flex-shrink: 0;
+        font-size: 0.73rem !important;
+        padding: 8px 10px 10px 10px !important;
+    }
+
+    .tab-two-col {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .chart-canvas {
+        height: 180px !important;
+    }
+}

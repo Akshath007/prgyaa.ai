@@ -191,6 +191,7 @@ const MODEL_SPECS = {
 // Initialize Dashboard
 document.addEventListener('DOMContentLoaded', async () => {
     await loadSamples();
+    setupMobileNav();
     setupModelSelectors();
     setupMasterTableClicks();
     setupViewModeSwitcher();
@@ -218,6 +219,41 @@ async function loadSamples() {
 
     renderSampleSelector();
     displaySample(0);
+}
+
+// Mobile Responsive Navigation & Fast Switcher
+function setupMobileNav() {
+    const btnToggle = document.getElementById('btn-toggle-sidebar');
+    const btnClose = document.getElementById('btn-close-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const sidebar = document.querySelector('.sidebar');
+
+    function openSidebar() {
+        sidebar?.classList.add('open');
+        backdrop?.classList.add('active');
+        document.body.classList.add('sidebar-open-locked');
+    }
+
+    function closeSidebar() {
+        sidebar?.classList.remove('open');
+        backdrop?.classList.remove('active');
+        document.body.classList.remove('sidebar-open-locked');
+    }
+
+    btnToggle?.addEventListener('click', openSidebar);
+    btnClose?.addEventListener('click', closeSidebar);
+    backdrop?.addEventListener('click', closeSidebar);
+
+    // Setup mobile quick-model horizontal bar chips
+    const mobileChips = document.querySelectorAll('.mobile-model-chip');
+    mobileChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const modelKey = chip.getAttribute('data-model');
+            if (modelKey) {
+                selectModel(modelKey);
+            }
+        });
+    });
 }
 
 // Model Selectors (Sidebar Items)
@@ -267,6 +303,23 @@ function selectModel(modelKey) {
             row.classList.remove('active-row');
         }
     });
+
+    // 3. Update Mobile Quick-Model Chips Active State
+    document.querySelectorAll('.mobile-model-chip').forEach(chip => {
+        if (chip.getAttribute('data-model') === modelKey) {
+            chip.classList.add('active');
+            chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+            chip.classList.remove('active');
+        }
+    });
+
+    // 4. Auto-close mobile drawer if open
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    sidebar?.classList.remove('open');
+    backdrop?.classList.remove('active');
+    document.body.classList.remove('sidebar-open-locked');
 
     displaySample(currentSampleIndex);
 }
@@ -674,11 +727,15 @@ function setupAudioPlayer() {
     });
 
     if (progressTrack) {
-        progressTrack.addEventListener('click', (e) => {
+        const handleSeek = (e) => {
             const rect = progressTrack.getBoundingClientRect();
-            const clickPos = (e.clientX - rect.left) / rect.width;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clickPos = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
             audioPlayer.currentTime = clickPos * (audioPlayer.duration || 1);
-        });
+        };
+        progressTrack.addEventListener('click', handleSeek);
+        progressTrack.addEventListener('touchstart', handleSeek, { passive: true });
+        progressTrack.addEventListener('touchmove', handleSeek, { passive: true });
     }
 }
 

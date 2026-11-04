@@ -7,9 +7,10 @@
     <!-- Premium Minimalist Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/static/style.css?v=4">
+    <link rel="stylesheet" href="/static/style.css?v=5">
 </head>
 <body>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
     <div class="app-layout">
         <!-- Minimal High-Density Sidebar -->
         <aside class="sidebar">
@@ -17,7 +18,10 @@
                 <div class="brand">
                     <span class="brand-bold">pragyaa</span><span class="brand-sub">.ai</span>
                 </div>
-                <span class="badge-env">STT Core</span>
+                <div class="sidebar-header-right">
+                    <span class="badge-env">STT Core</span>
+                    <button class="btn-close-sidebar" id="btn-close-sidebar" aria-label="Close Sidebar">&times;</button>
+                </div>
             </div>
 
             <div class="sidebar-menu">
@@ -112,22 +116,38 @@
         <main class="main-content">
             <!-- Top Minimal Navbar -->
             <header class="top-nav">
-                <div class="nav-breadcrumbs">
-                    <span class="crumb-dim">Speech-to-Text</span>
-                    <span class="crumb-slash">/</span>
-                    <span class="crumb-dim">8kHz Telephony Benchmark</span>
-                    <span class="crumb-slash">/</span>
-                    <span class="crumb-active" id="crumb-active-model">Bodhan Indic-Transcribe-Core (1.2B)</span>
+                <div class="top-nav-left">
+                    <button class="btn-hamburger" id="btn-toggle-sidebar" aria-label="Toggle Model Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="nav-breadcrumbs">
+                        <span class="crumb-dim">Speech-to-Text</span>
+                        <span class="crumb-slash">/</span>
+                        <span class="crumb-dim">8kHz Telephony</span>
+                        <span class="crumb-slash">/</span>
+                        <span class="crumb-active" id="crumb-active-model">Bodhan Indic-Transcribe-Core (1.2B)</span>
+                    </div>
                 </div>
                 <div class="nav-actions">
-                    <button class="btn-minimal" id="btn-sync-benchmark" title="Check for downloaded Colab benchmark results">⚡ Sync Colab</button>
-                    <button class="btn-minimal" id="btn-export-json">Export JSON</button>
-                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.docx" download class="btn-minimal" style="text-decoration:none; display:inline-flex; align-items:center;">📄 Word (.docx)</a>
-                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.pdf" target="_blank" class="btn-dark" style="text-decoration:none; display:inline-flex; align-items:center;">📥 Download PDF</a>
+                    <button class="btn-minimal btn-hide-mobile" id="btn-sync-benchmark" title="Check for downloaded Colab benchmark results">⚡ Sync</button>
+                    <button class="btn-minimal btn-hide-mobile" id="btn-export-json">JSON</button>
+                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.docx" download class="btn-minimal" style="text-decoration:none; display:inline-flex; align-items:center;">📄 Word</a>
+                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.pdf" target="_blank" class="btn-dark" style="text-decoration:none; display:inline-flex; align-items:center;">📥 PDF</a>
                 </div>
             </header>
 
             <div class="scroll-area">
+                <!-- Mobile Horizontal Fast Model Switcher (Visible on Phone) -->
+                <div class="mobile-model-bar" id="mobile-model-bar">
+                    <button class="mobile-model-chip active" data-model="bodhan"><span class="chip-dot dot-green"></span>Bodhan 1.2B</button>
+                    <button class="mobile-model-chip" data-model="sarvam_saarika"><span class="chip-dot dot-blue"></span>Sarvam v1</button>
+                    <button class="mobile-model-chip" data-model="gemini_flash"><span class="chip-dot dot-purple"></span>Gemini 3.5</button>
+                    <button class="mobile-model-chip" data-model="nemotron"><span class="chip-dot dot-amber"></span>Nemotron</button>
+                    <button class="mobile-model-chip" data-model="whisper_turbo"><span class="chip-dot dot-orange"></span>Whisper</button>
+                    <button class="mobile-model-chip" data-model="qwen2_audio"><span class="chip-dot dot-red"></span>Qwen2 7B</button>
+                </div>
                 <!-- Clean Compact Model Banner -->
                 <section class="model-hero">
                     <div class="hero-header">
@@ -233,6 +253,10 @@
                         <div class="matrix-legend">
                             <span class="legend-tip">💡 Click any model row to inspect its full scorecard and transcripts</span>
                         </div>
+                    </div>
+
+                    <div class="mobile-table-hint">
+                        <span>👉 Swipe table sideways to inspect all 6 models & metrics</span>
                     </div>
 
                     <div class="table-responsive">
@@ -730,6 +754,6 @@
         </main>
     </div>
 
-    <script src="/static/app.js?v=4"></script>
+    <script src="/static/app.js?v=5"></script>
 </body>
 </html>

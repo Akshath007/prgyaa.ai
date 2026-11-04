@@ -7,3 +7,4 @@ if DASHBOARD_DIR not in sys.path:
     sys.path.insert(0, DASHBOARD_DIR)
 
 from pragyaa_dashboard.app import app
+

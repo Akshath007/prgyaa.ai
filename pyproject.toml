@@ -11,3 +11,4 @@ dependencies = [
 
 [tool.vercel]
 entrypoint = "pragyaa_dashboard.app:app"
+
