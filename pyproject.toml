@@ -1,0 +1,13 @@
+[project]
+name = "prgyaa-ai"
+version = "1.0.0"
+description = "pragyaa.ai Speech-to-Text Benchmark & Telephony Evaluation Dashboard"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "python-multipart>=0.0.6"
+]
+
+[tool.vercel]
+entrypoint = "pragyaa_dashboard.app:app"
