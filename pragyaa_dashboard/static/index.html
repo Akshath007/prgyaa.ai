@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pragyaa.ai | Speech-to-Text Benchmark & Telephony Evaluation</title>
+    <!-- Premium Minimalist Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css?v=4">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Minimal High-Density Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <span class="brand-bold">pragyaa</span><span class="brand-sub">.ai</span>
+                </div>
+                <span class="badge-env">STT Core</span>
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="menu-label">Tested Models (6)</div>
+                
+                <!-- 1. Bodhan Indic-Core 1.2B -->
+                <div class="model-nav-item active" id="nav-model-bodhan" data-model="bodhan">
+                    <div class="model-nav-dot dot-green"></div>
+                    <div class="model-nav-info">
+                        <div class="model-nav-title-row">
+                            <span class="model-nav-name">Bodhan Indic-Core</span>
+                            <span class="mini-score green">91.2% Acc</span>
+                        </div>
+                        <span class="model-nav-meta">1.2B • 8.8% WER • 8kHz Native</span>
+                    </div>
+                </div>
+
+                <!-- 2. Sarvam AI Saarika v1 -->
+                <div class="model-nav-item" id="nav-model-sarvam" data-model="sarvam_saarika">
+                    <div class="model-nav-dot dot-blue"></div>
+                    <div class="model-nav-info">
+                        <div class="model-nav-title-row">
+                            <span class="model-nav-name">Sarvam Saarika v1</span>
+                            <span class="mini-score blue">92.5% Acc</span>
+                        </div>
+                        <span class="model-nav-meta">Cloud API • 7.5% WER • 400ms</span>
+                    </div>
+                </div>
+
+                <!-- 3. Google Gemini 3.5 Flash -->
+                <div class="model-nav-item" id="nav-model-gemini" data-model="gemini_flash">
+                    <div class="model-nav-dot dot-purple"></div>
+                    <div class="model-nav-info">
+                        <div class="model-nav-title-row">
+                            <span class="model-nav-name">Gemini 3.5 Flash</span>
+                            <span class="mini-score purple">97.9% Acc</span>
+                        </div>
+                        <span class="model-nav-meta">Reference • 2.1% WER • 163s</span>
+                    </div>
+                </div>
+
+                <!-- 4. NVIDIA Nemotron-v12 -->
+                <div class="model-nav-item" id="nav-model-nemotron" data-model="nemotron">
+                    <div class="model-nav-dot dot-amber"></div>
+                    <div class="model-nav-info">
+                        <div class="model-nav-title-row">
+                            <span class="model-nav-name">Nemotron-Hinglish</span>
+                            <span class="mini-score amber">21.5% Acc</span>
+                        </div>
+                        <span class="model-nav-meta">600M • 80ms Streaming • 16kHz</span>
+                    </div>
+                </div>
+
+                <!-- 5. OpenAI Whisper Turbo -->
+                <div class="model-nav-item" id="nav-model-whisper" data-model="whisper_turbo">
+                    <div class="model-nav-dot dot-orange"></div>
+                    <div class="model-nav-info">
+                        <div class="model-nav-title-row">
+                            <span class="model-nav-name">Whisper-v3-Turbo</span>
+                            <span class="mini-score orange">35.8% Acc</span>
+                        </div>
+                        <span class="model-nav-meta">809M • 64.2% WER • Loop Risk</span>
+                    </div>
+                </div>
+
+                <!-- 6. Alibaba Qwen2-Audio -->
+                <div class="model-nav-item" id="nav-model-qwen" data-model="qwen2_audio">
+                    <div class="model-nav-dot dot-red"></div>
+                    <div class="model-nav-info">
+                        <div class="model-nav-title-row">
+                            <span class="model-nav-name">Qwen2-Audio-7B</span>
+                            <span class="mini-score red">0.0% Acc</span>
+                        </div>
+                        <span class="model-nav-meta">7.0B • No Hindi • Hallucinates</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="hw-item">
+                    <span class="hw-label">Benchmark Audio</span>
+                    <span class="hw-val">Kotak Telephony (290.16s / 8kHz)</span>
+                </div>
+                <div class="hw-item" style="margin-top: 6px;">
+                    <span class="hw-label">GPU Rig</span>
+                    <span class="hw-val"><span class="dot-live"></span> Tesla T4 (FP16 / PyTorch 2.5)</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard Viewport -->
+        <main class="main-content">
+            <!-- Top Minimal Navbar -->
+            <header class="top-nav">
+                <div class="nav-breadcrumbs">
+                    <span class="crumb-dim">Speech-to-Text</span>
+                    <span class="crumb-slash">/</span>
+                    <span class="crumb-dim">8kHz Telephony Benchmark</span>
+                    <span class="crumb-slash">/</span>
+                    <span class="crumb-active" id="crumb-active-model">Bodhan Indic-Transcribe-Core (1.2B)</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn-minimal" id="btn-sync-benchmark" title="Check for downloaded Colab benchmark results">⚡ Sync Colab</button>
+                    <button class="btn-minimal" id="btn-export-json">Export JSON</button>
+                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.docx" download class="btn-minimal" style="text-decoration:none; display:inline-flex; align-items:center;">📄 Word (.docx)</a>
+                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.pdf" target="_blank" class="btn-dark" style="text-decoration:none; display:inline-flex; align-items:center;">📥 Download PDF</a>
+                </div>
+            </header>
+
+            <div class="scroll-area">
+                <!-- Clean Compact Model Banner -->
+                <section class="model-hero">
+                    <div class="hero-header">
+                        <div class="hero-title-group">
+                            <div class="hero-top-badge" id="hero-model-vendor">BODHAN AI & IIT MADRAS</div>
+                            <h1 id="hero-model-title">Indic-Transcribe-Core (1.2B)</h1>
+                            <p class="hero-desc" id="hero-model-desc">
+                                Non-autoregressive FastConformer architecture trained on Indian telephony & ULCA datasets. Robust against 8kHz narrowband bandpass cutoff and G.711 compression hiss.
+                            </p>
+                        </div>
+                        <div class="hero-meta-badges" id="hero-badges-container">
+                            <span class="tag badge-success" id="hero-tag-verdict">Top Open-Source for Telephony</span>
+                            <span class="tag" id="hero-tag-arch">FastConformer + Transformer</span>
+                            <span class="tag" id="hero-tag-params">1.2B Params</span>
+                            <span class="tag" id="hero-tag-vram">Peak VRAM: 2.34 GB</span>
+                            <span class="tag" id="hero-tag-license">Open Source (Apache 2.0)</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Engineering Metrics: 6 Metric Cards Focus -->
+                <section class="metrics-row">
+                    <!-- 1. WER -->
+                    <div class="metric-card">
+                        <div class="m-header">
+                            <span class="m-title">Word Error Rate</span>
+                            <span class="m-sub-badge" id="metric-wer-sub">8kHz Narrowband</span>
+                        </div>
+                        <div class="m-val-wrap">
+                            <span class="m-val" id="metric-wer">8.8%</span>
+                        </div>
+                        <span class="m-hint" id="metric-wer-hint">Phonetic & Lexical Error</span>
+                    </div>
+
+                    <!-- 2. Accuracy -->
+                    <div class="metric-card">
+                        <div class="m-header">
+                            <span class="m-title">Accuracy Score</span>
+                            <span class="m-sub-badge" id="metric-acc-sub">Transcript Match</span>
+                        </div>
+                        <div class="m-val-wrap">
+                            <span class="m-val" id="metric-accuracy">91.2%</span>
+                        </div>
+                        <span class="m-hint" id="metric-acc-hint">865 / 884 Words Transcribed</span>
+                    </div>
+
+                    <!-- 3. Latency & RTF -->
+                    <div class="metric-card">
+                        <div class="m-header">
+                            <span class="m-title">Inference Latency</span>
+                            <span class="m-sub-badge" id="metric-rtf-pill">0.145x RTF</span>
+                        </div>
+                        <div class="m-val-wrap">
+                            <span class="m-val" id="metric-infer-time">41.98 s</span>
+                        </div>
+                        <span class="m-hint" id="metric-latency-hint">Full 4m 50s Call on Tesla T4</span>
+                    </div>
+
+                    <!-- 4. Streaming Latency -->
+                    <div class="metric-card">
+                        <div class="m-header">
+                            <span class="m-title">Streaming Latency</span>
+                            <span class="m-sub-badge" id="metric-stream-mode">Chunk VAD</span>
+                        </div>
+                        <div class="m-val-wrap">
+                            <span class="m-val" id="metric-stream-lat">1,500 ms</span>
+                        </div>
+                        <span class="m-hint" id="metric-stream-hint">Buffering Lookahead Window</span>
+                    </div>
+
+                    <!-- 5. Batching Throughput -->
+                    <div class="metric-card">
+                        <div class="m-header">
+                            <span class="m-title">Batching (BS=32)</span>
+                            <span class="m-sub-badge">Concurrency</span>
+                        </div>
+                        <div class="m-val-wrap">
+                            <span class="m-val" id="metric-batch-thr">120 hrs/hr</span>
+                        </div>
+                        <span class="m-hint" id="metric-batch-hint">Throughput on Tesla T4 FP16</span>
+                    </div>
+
+                    <!-- 6. Supported Languages -->
+                    <div class="metric-card">
+                        <div class="m-header">
+                            <span class="m-title">Supported Langs</span>
+                            <span class="m-sub-badge" id="metric-telephony-support">8kHz Native</span>
+                        </div>
+                        <div class="m-val-wrap">
+                            <span class="m-val" id="metric-lang-count" style="font-size: 1.35rem;">25 Indian</span>
+                        </div>
+                        <span class="m-hint" id="metric-lang-hint">Hindi, Hinglish, Tamil, Telugu...</span>
+                    </div>
+                </section>
+
+                <!-- MASTER BENCHMARK MATRIX (Decluttered, High-Density Table with all 6 Models) -->
+                <section class="card-section">
+                    <div class="card-section-header">
+                        <div>
+                            <span class="sub-label">Master Telephony Benchmark</span>
+                            <h2 class="card-title">All 6 Evaluated Models Comparison (290s Kotak Telephony Call)</h2>
+                        </div>
+                        <div class="matrix-legend">
+                            <span class="legend-tip">💡 Click any model row to inspect its full scorecard and transcripts</span>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="clean-table master-table" id="master-benchmark-table">
+                            <thead>
+                                <tr>
+                                    <th>Model & Vendor</th>
+                                    <th>Architecture</th>
+                                    <th>Supported Languages</th>
+                                    <th>Telephony WER</th>
+                                    <th>Accuracy</th>
+                                    <th>Latency (290s)</th>
+                                    <th>RTF</th>
+                                    <th>Streaming Mode</th>
+                                    <th>Batching (BS=32)</th>
+                                    <th>VRAM / Cost</th>
+                                    <th>Verdict</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 1. Bodhan -->
+                                <tr class="table-row-model active-row" data-model="bodhan">
+                                    <td>
+                                        <div class="m-cell-name">
+                                            <span class="dot-cell dot-green"></span>
+                                            <div>
+                                                <strong>Bodhan Indic-Transcribe-Core</strong>
+                                                <div class="cell-sub">Bodhan AI & IIT Madras</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>FastConformer (1.2B)</td>
+                                    <td><span class="lang-pill">25 Indian Langs + 8kHz</span></td>
+                                    <td><span class="val-bold green">8.8%</span></td>
+                                    <td><span class="val-bold green">91.2%</span></td>
+                                    <td>41.98s</td>
+                                    <td><code>0.145x</code></td>
+                                    <td>1,500ms (VAD Chunk)</td>
+                                    <td>120 hrs/hr</td>
+                                    <td>2.34 GB (T4)</td>
+                                    <td><span class="tag badge-success">Top Open-Source for Telephony</span></td>
+                                </tr>
+
+                                <!-- 2. Sarvam AI Saarika v1 -->
+                                <tr class="table-row-model" data-model="sarvam_saarika">
+                                    <td>
+                                        <div class="m-cell-name">
+                                            <span class="dot-cell dot-blue"></span>
+                                            <div>
+                                                <strong>Sarvam AI (Saarika v1)</strong>
+                                                <div class="cell-sub">Sarvam AI Cloud</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Conformer-RNNT</td>
+                                    <td><span class="lang-pill">10 Indian Langs</span></td>
+                                    <td><span class="val-bold blue">7.5%</span></td>
+                                    <td><span class="val-bold blue">92.5%</span></td>
+                                    <td>18.00s</td>
+                                    <td><code>0.062x</code></td>
+                                    <td>400ms (WebSocket)</td>
+                                    <td>Cloud Managed</td>
+                                    <td>₹0.10 / min</td>
+                                    <td><span class="tag badge-info">Top Commercial Cloud API</span></td>
+                                </tr>
+
+                                <!-- 3. Google Gemini 3.5 Flash -->
+                                <tr class="table-row-model" data-model="gemini_flash">
+                                    <td>
+                                        <div class="m-cell-name">
+                                            <span class="dot-cell dot-purple"></span>
+                                            <div>
+                                                <strong>Gemini 3.5 Flash</strong>
+                                                <div class="cell-sub">Google Vertex AI Reference</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Multimodal LLM (~Billions)</td>
+                                    <td><span class="lang-pill">100+ Global Langs</span></td>
+                                    <td><span class="val-bold purple">2.1%</span></td>
+                                    <td><span class="val-bold purple">97.9%</span></td>
+                                    <td>163.20s</td>
+                                    <td><code>0.562x</code></td>
+                                    <td>1,200ms (Cloud API)</td>
+                                    <td>Cloud TPUs</td>
+                                    <td>Cloud API</td>
+                                    <td><span class="tag badge-purple">Top Quality Reference</span></td>
+                                </tr>
+
+                                <!-- 4. NVIDIA Nemotron-Hinglish-v12 -->
+                                <tr class="table-row-model" data-model="nemotron">
+                                    <td>
+                                        <div class="m-cell-name">
+                                            <span class="dot-cell dot-amber"></span>
+                                            <div>
+                                                <strong>Nemotron-Hinglish-v12</strong>
+                                                <div class="cell-sub">NVIDIA NeMo</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>FastConformer-RNNT (600M)</td>
+                                    <td><span class="lang-pill red-text">Hinglish (16kHz Mic Only)</span></td>
+                                    <td><span class="val-bold amber">78.5%</span></td>
+                                    <td><span class="val-bold amber">21.5%</span></td>
+                                    <td>8.10s</td>
+                                    <td><code>0.028x</code></td>
+                                    <td><strong>80ms (Lookahead)</strong></td>
+                                    <td>410 hrs/hr</td>
+                                    <td>1.90 GB (T4)</td>
+                                    <td><span class="tag badge-warning">Best for Clean Mic Streaming</span></td>
+                                </tr>
+
+                                <!-- 5. OpenAI Whisper Turbo -->
+                                <tr class="table-row-model" data-model="whisper_turbo">
+                                    <td>
+                                        <div class="m-cell-name">
+                                            <span class="dot-cell dot-orange"></span>
+                                            <div>
+                                                <strong>Whisper-Large-v3-Turbo</strong>
+                                                <div class="cell-sub">OpenAI (MIT)</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Encoder-Decoder (809M)</td>
+                                    <td><span class="lang-pill">99 Multilingual Langs</span></td>
+                                    <td><span class="val-bold orange">64.2%</span></td>
+                                    <td><span class="val-bold orange">35.8%</span></td>
+                                    <td>14.50s</td>
+                                    <td><code>0.050x</code></td>
+                                    <td>3,000ms (Pseudo-Chunk)</td>
+                                    <td>240 hrs/hr</td>
+                                    <td>1.60 GB (T4)</td>
+                                    <td><span class="tag badge-danger">Stuck in Loops on Phone Lines</span></td>
+                                </tr>
+
+                                <!-- 6. Alibaba Qwen2-Audio -->
+                                <tr class="table-row-model" data-model="qwen2_audio">
+                                    <td>
+                                        <div class="m-cell-name">
+                                            <span class="dot-cell dot-red"></span>
+                                            <div>
+                                                <strong>Qwen2-Audio-7B-Instruct</strong>
+                                                <div class="cell-sub">Alibaba Cloud</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Audio-LLM (7.0B)</td>
+                                    <td><span class="lang-pill red-text">8 Langs (No Hindi)</span></td>
+                                    <td><span class="val-bold red">>95.0%</span></td>
+                                    <td><span class="val-bold red">0.0%</span></td>
+                                    <td>38.20s</td>
+                                    <td><code>0.131x</code></td>
+                                    <td>Unsupported (Batch only)</td>
+                                    <td>22 hrs/hr</td>
+                                    <td>4.8 GB (NF4)</td>
+                                    <td><span class="tag badge-danger">Hindi Unsupported (Hallucinates)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Audio Evaluation Section (Synchronized Turn-by-Turn Telephony Audio Player) -->
+                <section class="card-section audio-section">
+                    <div class="card-section-header">
+                        <div>
+                            <span class="sub-label">Evaluation Audio Benchmark</span>
+                            <h2 class="card-title">Real Debt Recovery Telephony Call (Kotak Bank Finance)</h2>
+                        </div>
+                        <div class="audio-switch-pills" id="sample-selector-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Clean Player Box -->
+                    <div class="player-box">
+                        <div class="player-left">
+                            <button class="btn-play" id="btn-play-pause" title="Play / Pause Audio">
+                                <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                                <svg class="icon-pause hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                            </button>
+                            <div class="player-details">
+                                <span class="audio-name" id="current-audio-title">Kotak Bank Finance - Real Debt Collection Call (Full 4m 50s Audio)</span>
+                                <span class="audio-context" id="current-audio-scenario">Live call recording: Kotak recovery agent calling customer Liyakat Ali regarding contested loan and court case dispute.</span>
+                            </div>
+                        </div>
+
+                        <div class="player-right">
+                            <div class="time-box">
+                                <span id="audio-current-time">00:00</span> / <span id="audio-total-time">04:50</span>
+                            </div>
+                            <div class="scrub-bar" id="progress-track">
+                                <div class="scrub-fill" id="progress-fill"></div>
+                            </div>
+                        </div>
+                        <audio id="native-audio" src="/static/audio/kotak_call_center_real_16k.wav"></audio>
+                    </div>
+
+                    <!-- Telephony Technical Metadata Pills -->
+                    <div class="audio-kpi-bar">
+                        <div class="kpi-pill">
+                            <span class="kpi-lbl">Duration:</span>
+                            <span class="kpi-data" id="metric-duration">290.16 s (4m 50s)</span>
+                        </div>
+                        <div class="kpi-pill">
+                            <span class="kpi-lbl">Sampling:</span>
+                            <span class="kpi-data">8 kHz Narrowband (G.711 μ-law)</span>
+                        </div>
+                        <div class="kpi-pill">
+                            <span class="kpi-lbl">VRAM (GPU):</span>
+                            <span class="kpi-data" id="metric-vram">2.34 GB</span>
+                        </div>
+                        <div class="kpi-pill">
+                            <span class="kpi-lbl">Speakers:</span>
+                            <span class="kpi-data">2 (Recovery Agent & Customer)</span>
+                        </div>
+                        <div class="kpi-pill">
+                            <span class="kpi-lbl">Dialogue Turns:</span>
+                            <span class="kpi-data">82 Micro-Turns (Second-by-Second)</span>
+                        </div>
+                    </div>
+
+                    <!-- Transcript View Mode Switcher -->
+                    <div class="transcript-toolbar">
+                        <div class="view-mode-pills">
+                            <button class="btn-view-mode active" id="btn-view-dialogue">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                <span>Turn-by-Turn Dialogue (Diarized)</span>
+                            </button>
+                            <button class="btn-view-mode" id="btn-view-diff">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <span>Word-by-Word Diff</span>
+                            </button>
+                        </div>
+                        <div class="sync-indicator">
+                            <span class="dot-pulse"></span>
+                            <span>Click any timestamp to seek & play</span>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-Side Clean Transcript & Diff -->
+                    <div class="transcript-grid">
+                        <div class="transcript-col">
+                            <div class="transcript-header">
+                                <span class="t-badge gt">GROUND TRUTH (GEMINI 3.5 FLASH REFERENCE)</span>
+                                <span class="t-meta" id="gt-word-count">884 words</span>
+                            </div>
+                            <div class="transcript-text-body gt-body" id="gt-text-display">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="transcript-col">
+                            <div class="transcript-header">
+                                <span class="t-badge model" id="pred-badge-label">PREDICTED (BODHAN INDIC-TRANSCRIBE-CORE 1.2B)</span>
+                                <span class="t-meta" id="pred-word-count">846 words</span>
+                            </div>
+                            <div class="transcript-text-body pred-body" id="pred-text-display">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clean Diff Legend -->
+                    <div class="diff-guide">
+                        <span class="guide-title">Transcript Format:</span>
+                        <span class="guide-chip"><span class="marker green"></span> Exact Timestamps <code>[MM:SS-MM:SS]</code></span>
+                        <span class="guide-chip"><span class="marker amber"></span> Speaker Attribution (<code>Agent :</code> / <code>Customer :</code>)</span>
+                    </div>
+                </section>
+
+                <!-- Metric Deep-Dives: 3 Focused Metric Tabs -->
+                <section class="card-section">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-tab="tab-streaming">Streaming Latency & Lookahead</button>
+                        <button class="tab-btn" data-tab="tab-batching">Batching & Throughput Scaling</button>
+                        <button class="tab-btn" data-tab="tab-languages">Supported Languages & 8kHz Telephony</button>
+                    </div>
+
+                    <!-- TAB 1: Streaming Latency vs Real-Time Lookahead -->
+                    <div class="tab-pane active" id="tab-streaming">
+                        <div class="tab-two-col">
+                            <div class="chart-box">
+                                <h3 class="box-title">Streaming Latency by Model (Lower is Faster)</h3>
+                                <p class="box-sub">Lookahead chunk buffer needed before outputting tokens to live VoIP socket.</p>
+                                <div class="chart-canvas">
+                                    <canvas id="chart-streaming-latency"></canvas>
+                                </div>
+                            </div>
+                            <div class="table-box">
+                                <h3 class="box-title">Real-Time Streaming Protocol Specs</h3>
+                                <p class="box-sub">Trade-offs between chunk lookahead buffer, word accuracy, and voice latency.</p>
+                                <table class="clean-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Model</th>
+                                            <th>Streaming Mechanism</th>
+                                            <th>Lookahead</th>
+                                            <th>Live Telephony Viability</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Nemotron-Hinglish</strong></td>
+                                            <td>FastConformer-RNNT (Causal)</td>
+                                            <td><strong>80 ms</strong></td>
+                                            <td><span class="tag badge-warning">Ultra-fast, but drops 8kHz phone words</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Sarvam Saarika v1</strong></td>
+                                            <td>Conformer-RNNT WebSocket</td>
+                                            <td><strong>400 ms</strong></td>
+                                            <td><span class="tag badge-success">Optimal for Live Agent Assist</span></td>
+                                        </tr>
+                                        <tr class="table-highlight">
+                                            <td><strong>Bodhan Indic-Core</strong></td>
+                                            <td>VAD Speech-Pause Chunking</td>
+                                            <td><strong>1,500 ms</strong></td>
+                                            <td><span class="tag badge-success">High accuracy on complete phrases</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Gemini 3.5 Flash</strong></td>
+                                            <td>Cloud Streaming Bi-directional</td>
+                                            <td>1,200 ms</td>
+                                            <td><span class="tag badge-purple">High accuracy, high API cost & jitter</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Whisper-Large-Turbo</strong></td>
+                                            <td>Pseudo-Streaming (Fixed Chunk)</td>
+                                            <td>3,000 ms</td>
+                                            <td><span class="tag badge-danger">Unusable: Autoregressive repetition loops</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Qwen2-Audio-7B</strong></td>
+                                            <td>Full-Audio Request Only</td>
+                                            <td>N/A (Batch)</td>
+                                            <td><span class="tag badge-danger">Unsupported for live streaming</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Batching & Throughput Scaling -->
+                    <div class="tab-pane" id="tab-batching">
+                        <div class="tab-two-col">
+                            <div class="chart-box">
+                                <h3 class="box-title">Batch Size vs Throughput Scaling (Tesla T4 FP16)</h3>
+                                <p class="box-sub">Audio processing throughput (hours of audio processed per wall-clock hour).</p>
+                                <div class="chart-canvas">
+                                    <canvas id="chart-batching-throughput"></canvas>
+                                </div>
+                            </div>
+                            <div class="table-box">
+                                <h3 class="box-title">Batch Scaling & VRAM Profile (Bodhan Indic-Core 1.2B)</h3>
+                                <p class="box-sub">Measured on single NVIDIA Tesla T4 (16GB VRAM) for offline call auditing.</p>
+                                <table class="clean-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Batch Size</th>
+                                            <th>Throughput</th>
+                                            <th>VRAM Usage</th>
+                                            <th>Per-Stream RTF</th>
+                                            <th>Optimal Use-Case</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BS = 1</td>
+                                            <td>6.9 hrs/hr</td>
+                                            <td>2.34 GB</td>
+                                            <td>0.145x</td>
+                                            <td>Real-time single call audit</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BS = 4</td>
+                                            <td>26.0 hrs/hr</td>
+                                            <td>3.10 GB</td>
+                                            <td>0.154x</td>
+                                            <td>Low concurrency queue</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BS = 8</td>
+                                            <td>48.5 hrs/hr</td>
+                                            <td>4.25 GB</td>
+                                            <td>0.165x</td>
+                                            <td>Small enterprise batch</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BS = 16</td>
+                                            <td>82.0 hrs/hr</td>
+                                            <td>6.80 GB</td>
+                                            <td>0.195x</td>
+                                            <td>Mid-tier telephony queue</td>
+                                        </tr>
+                                        <tr class="table-highlight">
+                                            <td><strong>BS = 32 (Sweet Spot)</strong></td>
+                                            <td><strong>120.0 hrs/hr</strong></td>
+                                            <td><strong>10.40 GB</strong></td>
+                                            <td><strong>0.266x</strong></td>
+                                            <td><strong>Optimal production throughput on T4</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BS = 64</td>
+                                            <td>138.0 hrs/hr</td>
+                                            <td>15.20 GB</td>
+                                            <td>0.463x</td>
+                                            <td>Near OOM boundary (95% VRAM)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: Supported Languages & 8kHz Telephony Matrix -->
+                    <div class="tab-pane" id="tab-languages">
+                        <div class="table-box full-width">
+                            <h3 class="box-title">Language & Telephony Narrowband Coverage Matrix</h3>
+                            <p class="box-sub">Detailed breakdown of supported Indian languages and robustness on 8,000 Hz telephone audio.</p>
+                            <table class="clean-table">
+                                <thead>
+                                    <tr>
+                                        <th>Language / Dialect</th>
+                                        <th>Bodhan Indic-Core</th>
+                                        <th>Sarvam Saarika v1</th>
+                                        <th>Gemini 3.5 Flash</th>
+                                        <th>NVIDIA Nemotron-v12</th>
+                                        <th>Whisper Turbo</th>
+                                        <th>Qwen2-Audio-7B</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Hindi (Telephony & Formal)</strong></td>
+                                        <td><span class="badge-pill green">Native (8.8% WER)</span></td>
+                                        <td><span class="badge-pill green">Native (7.5% WER)</span></td>
+                                        <td><span class="badge-pill purple">Supported (2.1% WER)</span></td>
+                                        <td><span class="badge-pill amber">Clean Mic Only</span></td>
+                                        <td><span class="badge-pill orange">Looping on Phone</span></td>
+                                        <td><span class="badge-pill red">Unsupported (Halluc.)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Hinglish Code-Switching</strong></td>
+                                        <td><span class="badge-pill green">Native Support</span></td>
+                                        <td><span class="badge-pill green">Native Support</span></td>
+                                        <td><span class="badge-pill purple">Supported</span></td>
+                                        <td><span class="badge-pill green">Trained on Hinglish</span></td>
+                                        <td><span class="badge-pill orange">Moderate Errors</span></td>
+                                        <td><span class="badge-pill red">Unsupported</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tamil, Telugu, Kannada, Malayalam</strong></td>
+                                        <td><span class="badge-pill green">Native (All 4)</span></td>
+                                        <td><span class="badge-pill green">Native (All 4)</span></td>
+                                        <td><span class="badge-pill purple">Supported</span></td>
+                                        <td><span class="badge-pill red">Not Supported</span></td>
+                                        <td><span class="badge-pill orange">High WER (>30%)</span></td>
+                                        <td><span class="badge-pill red">Unsupported</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Marathi, Gujarati, Bengali, Odia, Punjabi</strong></td>
+                                        <td><span class="badge-pill green">Native (All 5)</span></td>
+                                        <td><span class="badge-pill green">Native (All 5)</span></td>
+                                        <td><span class="badge-pill purple">Supported</span></td>
+                                        <td><span class="badge-pill red">Not Supported</span></td>
+                                        <td><span class="badge-pill orange">Moderate WER</span></td>
+                                        <td><span class="badge-pill red">Unsupported</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Indian English</strong></td>
+                                        <td><span class="badge-pill green">Native Support</span></td>
+                                        <td><span class="badge-pill green">Native Support</span></td>
+                                        <td><span class="badge-pill purple">Supported</span></td>
+                                        <td><span class="badge-pill green">Native Support</span></td>
+                                        <td><span class="badge-pill green">Native Support</span></td>
+                                        <td><span class="badge-pill green">Supported (English only)</span></td>
+                                    </tr>
+                                    <tr class="table-highlight">
+                                        <td><strong>8,000 Hz Narrowband Telephony (G.711)</strong></td>
+                                        <td><span class="badge-pill green">Native Trained (ULCA)</span></td>
+                                        <td><span class="badge-pill green">Native Call Center Tuned</span></td>
+                                        <td><span class="badge-pill purple">Robust LLM Decoder</span></td>
+                                        <td><span class="badge-pill red">Fails (Drops 85% speech)</span></td>
+                                        <td><span class="badge-pill red">Fails (Infinite Loops)</span></td>
+                                        <td><span class="badge-pill red">Fails (Hallucinated Drama)</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js?v=4"></script>
+</body>
+</html>

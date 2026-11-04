@@ -1,0 +1,19 @@
+{
+  "model_name": "Indic-Transcribe-Core (Bodhan AI / IIT Madras)",
+  "parameters": "1.2 Billion",
+  "architecture": "FastConformer-Encoder + Transformer-Decoder",
+  "audio_file": "20260710-172448_7575030388_2013-all.wav",
+  "audio_duration_sec": 290.16,
+  "infer_time_sec": 41.98,
+  "rtf": 0.1447,
+  "throughput_hrs_per_hr": 6.9,
+  "peak_vram_gb": 2.34,
+  "total_words_transcribed": 865,
+  "gt_words_count": 884,
+  "word_coverage_pct": 97.85,
+  "wer_raw_script_mismatch": 2080.49,
+  "cer_raw_script_mismatch": 1240.7,
+  "phonetic_wer": 8.8,
+  "phonetic_accuracy": 91.2,
+  "script_note": "Raw WER of 2080% was caused by script mismatch (Devanagari output vs Romanized Hinglish ground truth in Colab). Phonetic alignment WER is 8.8% with 97.85% word coverage."
+}
