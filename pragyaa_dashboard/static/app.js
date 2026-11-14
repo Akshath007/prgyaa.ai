@@ -200,6 +200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initCharts();
     setupExportHandlers();
     setupBenchmarkSync();
+    setupGroupSwitching();
 });
 
 // Load Samples Metadata
@@ -285,6 +286,12 @@ function setupMasterTableClicks() {
 function selectModel(modelKey) {
     if (!MODEL_SPECS[modelKey]) return;
     currentModel = modelKey;
+
+    // Auto-switch to Group 1 view if currently on Accent AI or OSINT
+    const viewTelephony = document.getElementById('view-telephony-stt');
+    if (viewTelephony && viewTelephony.classList.contains('hidden')) {
+        switchMainGroup('telephony-stt');
+    }
 
     // 1. Update Sidebar Active State
     document.querySelectorAll('.model-nav-item').forEach(item => {
@@ -811,6 +818,14 @@ function setupTabs() {
 
             btn.classList.add('active');
             const targetId = btn.getAttribute('data-tab');
+            if (targetId === 'tab-accent-ai') {
+                switchMainGroup('accent-ai');
+                return;
+            }
+            if (targetId === 'tab-osint-report') {
+                switchMainGroup('bengaluru-osint');
+                return;
+            }
             const targetPane = document.getElementById(targetId);
             if (targetPane) targetPane.classList.add('active');
 
@@ -985,4 +1000,112 @@ function setupExportHandlers() {
         a.click();
         URL.revokeObjectURL(url);
     });
+}
+
+
+// =====================================================================
+// TOP GROUP BAR & SIDEBAR SECTION SWITCHER
+// =====================================================================
+function setupGroupSwitching() {
+    // 1. Top Primary Group Bar Tabs
+    const groupTabs = document.querySelectorAll('.group-tab[data-group]');
+    groupTabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+            e.preventDefault();
+            const groupKey = tab.getAttribute('data-group');
+            if (groupKey) {
+                switchMainGroup(groupKey);
+            }
+        });
+    });
+
+    // 2. Sidebar Navigation Items (Group 2 & Group 3)
+    const sidebarNavItems = document.querySelectorAll('.sidebar-nav-item[data-group]');
+    sidebarNavItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const groupKey = item.getAttribute('data-group');
+            if (groupKey) {
+                switchMainGroup(groupKey);
+            }
+        });
+    });
+}
+
+function switchMainGroup(groupKey) {
+    // 1. Update Top Group Tabs Active State
+    document.querySelectorAll('.group-tab[data-group]').forEach(tab => {
+        if (tab.getAttribute('data-group') === groupKey) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+
+    // 2. Update Sidebar Nav Items Active State
+    document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+        if (item.getAttribute('data-group') === groupKey) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    // If switching to Group 1, restore active state to current model
+    if (groupKey === 'telephony-stt') {
+        document.querySelectorAll('.model-nav-item').forEach(item => {
+            if (item.getAttribute('data-model') === currentModel) {
+                item.classList.add('active');
+            }
+        });
+    } else {
+        // Un-highlight model items when in Group 2 or 3
+        document.querySelectorAll('.model-nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+    }
+
+    // 3. Toggle Main Group Views
+    document.querySelectorAll('.main-group-view').forEach(view => {
+        view.classList.add('hidden');
+    });
+
+    const targetView = document.getElementById(`view-${groupKey}`);
+    if (targetView) {
+        targetView.classList.remove('hidden');
+    }
+
+    // 4. Update Breadcrumbs in Header
+    const crumbEl = document.getElementById('crumb-active-model');
+    if (crumbEl) {
+        if (groupKey === 'telephony-stt') {
+            const spec = MODEL_SPECS[currentModel] || MODEL_SPECS.bodhan;
+            crumbEl.innerText = `${spec.title} (${spec.params})`;
+        } else if (groupKey === 'accent-ai') {
+            crumbEl.innerText = 'Group 2: Real-Time Accent AI & Sanas.ai Benchmark';
+        } else if (groupKey === 'bengaluru-osint') {
+            crumbEl.innerText = 'Group 3: pragyaa.ai Bengaluru Office OSINT & Ground Verification';
+        }
+    }
+
+    // 5. Scroll area to top
+    const scrollArea = document.querySelector('.scroll-area');
+    if (scrollArea) {
+        scrollArea.scrollTop = 0;
+    }
+
+    // 6. Close mobile sidebar drawer if open
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    sidebar?.classList.remove('open');
+    backdrop?.classList.remove('active');
+    document.body.classList.remove('sidebar-open-locked');
+
+    // 7. Resize charts if back to telephony view
+    if (groupKey === 'telephony-stt') {
+        setTimeout(() => {
+            Object.values(charts).forEach(c => {
+                if (c && typeof c.resize === 'function') c.resize();
+            });
+        }, 50);
+    }
 }
