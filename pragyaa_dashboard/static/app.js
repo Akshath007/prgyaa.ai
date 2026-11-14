@@ -287,7 +287,7 @@ function selectModel(modelKey) {
     if (!MODEL_SPECS[modelKey]) return;
     currentModel = modelKey;
 
-    // Auto-switch to Group 1 view if currently on Accent AI or OSINT
+    // Auto-switch to Group 1 view if currently on Accent AI
     const viewTelephony = document.getElementById('view-telephony-stt');
     if (viewTelephony && viewTelephony.classList.contains('hidden')) {
         switchMainGroup('telephony-stt');
@@ -822,10 +822,7 @@ function setupTabs() {
                 switchMainGroup('accent-ai');
                 return;
             }
-            if (targetId === 'tab-osint-report') {
-                switchMainGroup('bengaluru-osint');
-                return;
-            }
+
             const targetPane = document.getElementById(targetId);
             if (targetPane) targetPane.classList.add('active');
 
@@ -1082,8 +1079,7 @@ function switchMainGroup(groupKey) {
             crumbEl.innerText = `${spec.title} (${spec.params})`;
         } else if (groupKey === 'accent-ai') {
             crumbEl.innerText = 'Group 2: Real-Time Accent AI & Sanas.ai Benchmark';
-        } else if (groupKey === 'bengaluru-osint') {
-            crumbEl.innerText = 'Group 3: pragyaa.ai Bengaluru Office OSINT & Ground Verification';
+
         }
     }
 
