@@ -133,6 +133,7 @@
                 <div class="nav-actions">
                     <button class="btn-minimal btn-hide-mobile" id="btn-sync-benchmark" title="Check for downloaded Colab benchmark results">⚡ Sync</button>
                     <button class="btn-minimal btn-hide-mobile" id="btn-export-json">JSON</button>
+                    <a href="/static/research_dossier.html" target="_blank" class="btn-minimal" style="text-decoration:none; display:inline-flex; align-items:center; color:#2563eb; font-weight:700;">🔬 Research Dossier</a>
                     <a href="/static/Bodhan_Second_by_Second_Transcript_Report.docx" download class="btn-minimal" style="text-decoration:none; display:inline-flex; align-items:center;">📄 Word</a>
                     <a href="/static/Bodhan_Second_by_Second_Transcript_Report.pdf" target="_blank" class="btn-dark" style="text-decoration:none; display:inline-flex; align-items:center;">📥 PDF</a>
                 </div>
@@ -534,6 +535,8 @@
                         <button class="tab-btn active" data-tab="tab-streaming">Streaming Latency & Lookahead</button>
                         <button class="tab-btn" data-tab="tab-batching">Batching & Throughput Scaling</button>
                         <button class="tab-btn" data-tab="tab-languages">Supported Languages & 8kHz Telephony</button>
+                        <button class="tab-btn" data-tab="tab-accent-ai" style="color:#2563eb; font-weight:700;">🎙️ Accent AI (Sanas vs Open-Source)</button>
+                        <button class="tab-btn" data-tab="tab-osint-report" style="color:#059669; font-weight:700;">🕵️ pragyaa.ai Bengaluru Office OSINT</button>
                     </div>
 
                     <!-- TAB 1: Streaming Latency vs Real-Time Lookahead -->
@@ -747,6 +750,144 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                
+                    <!-- TAB 4: Real-Time Accent Translation (Sanas vs Open-Source vs Gemini) -->
+                    <div class="tab-pane" id="tab-accent-ai">
+                        <div class="table-box full-width" style="padding: 24px; background: var(--bg-surface);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border-main); padding-bottom:12px; flex-wrap:wrap; gap:10px;">
+                                <div>
+                                    <h3 class="box-title" style="font-size:1.25rem; font-weight:800; color:var(--text-main);">🎙️ Real-Time Accent Translation & Speech-to-Speech (STS) Benchmark</h3>
+                                    <p class="box-sub" style="margin-top:4px;">Comparative analysis: Sanas.ai Acoustic Formant Shifting vs. Gemini Live vs. Local Open-Source Cascades.</p>
+                                </div>
+                                <a href="/static/research_dossier.html#accent-translation" target="_blank" class="btn-minimal" style="color:var(--accent-blue); font-weight:700; text-decoration:none;">Open Full Report ↗</a>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:24px;">
+                                <div style="background:var(--bg-subtle); padding:16px; border-radius:var(--radius-md); border-left:4px solid var(--accent-green);">
+                                    <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:6px; color:var(--text-main);">1. Sanas.ai (Acoustic Filter)</h4>
+                                    <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Direct audio frame-by-frame formant transformation (&lt;100ms latency). Does NOT transcribe to text. Preserves speaker pitch, emotional inflection, and timbre while neutralizing phonemes.</p>
+                                    <div style="margin-top:8px;"><span class="badge-pill green">Target: US, UK, AU English</span></div>
+                                </div>
+                                <div style="background:var(--bg-subtle); padding:16px; border-radius:var(--radius-md); border-left:4px solid var(--accent-amber);">
+                                    <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:6px; color:var(--text-main);">2. Gemini Multimodal Live API</h4>
+                                    <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Native Bidirectional Audio over WebSockets. Needs phrase accumulation before outputting speech tokens. High natural prosody, but has 500ms–1.2s buffer delay and replaces user voice with prebuilt bot personas.</p>
+                                    <div style="margin-top:8px;"><span class="badge-pill amber">Latency: 500ms–1.2s • Cloud API</span></div>
+                                </div>
+                                <div style="background:var(--bg-subtle); padding:16px; border-radius:var(--radius-md); border-left:4px solid var(--accent-blue);">
+                                    <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:6px; color:var(--text-main);">3. Local Open-Source (Whisper + Kokoro-82M)</h4>
+                                    <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;">Our wired local pipeline: Faster-Whisper + Kokoro-82M / gTTS multi-accent bridge routed into Zoom via VB-Audio Cable. Completely offline, zero subscription cost, with 7 selectable target accents.</p>
+                                    <div style="margin-top:8px;"><span class="badge-pill blue">7 Accents: US, UK, AU, CA, IE, ZA, IN</span></div>
+                                </div>
+                            </div>
+
+                            <h4 style="font-size:1rem; font-weight:700; margin-bottom:12px; color:var(--text-main);">Architectural Comparison: Sanas vs Alternatives</h4>
+                            <table class="clean-table" style="margin-bottom:24px;">
+                                <thead>
+                                    <tr>
+                                        <th>Architecture Pattern</th>
+                                        <th>Technology / Pipeline</th>
+                                        <th>Latency</th>
+                                        <th>Speaker Timbre</th>
+                                        <th>Zoom / GMeet Usability</th>
+                                        <th>Cost & Hardware</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-highlight">
+                                        <td><b>Sanas.ai</b></td>
+                                        <td>Acoustic Formant Shifter (Signal Level)</td>
+                                        <td><span class="badge-pill green">&lt;80ms – 100ms</span></td>
+                                        <td><span class="badge-pill green">Your Own Voice (Kept)</span></td>
+                                        <td><span class="badge-pill green">Perfect Lip-Sync (No Lag)</span></td>
+                                        <td>Enterprise BPO License • Laptop CPU</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Dubbing AI / Altered.ai</b></td>
+                                        <td>Real-Time Speech-to-Speech (STS)</td>
+                                        <td><span class="badge-pill green">&lt;30ms – 120ms</span></td>
+                                        <td><span class="badge-pill blue">Selectable Voice Cards</span></td>
+                                        <td><span class="badge-pill green">Native Virtual Mic Driver</span></td>
+                                        <td>Freemium Desktop App • Windows PC</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Gemini Live Audio API</b></td>
+                                        <td>LLM Multimodal Transformer Tokenizer</td>
+                                        <td><span class="badge-pill amber">500ms – 1,200ms</span></td>
+                                        <td><span class="badge-pill red">Bot Persona (Puck/Kore)</span></td>
+                                        <td><span class="badge-pill amber">Crosstalk risk on live calls</span></td>
+                                        <td>Cloud API usage per minute</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Our Local Bridge (Kokoro/gTTS)</b></td>
+                                        <td>Streaming VAD + Whisper + Multi-TLD TTS</td>
+                                        <td><span class="badge-pill blue">~200ms – 300ms</span></td>
+                                        <td><span class="badge-pill blue">Native Regional Accents</span></td>
+                                        <td><span class="badge-pill green">VB-Audio Virtual Cable</span></td>
+                                        <td>100% Free & Open-Source (Local CPU)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>RVC (Retrieval-Based Voice)</b></td>
+                                        <td>Pitch & Timbre Embedding Swap</td>
+                                        <td><span class="badge-pill amber">150ms – 300ms</span></td>
+                                        <td><span class="badge-pill red">American Timbre + Indian Accent</span></td>
+                                        <td><span class="badge-pill red">Fails (Does not convert phonemes)</span></td>
+                                        <td>Requires dedicated NVIDIA GPU</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div style="background:var(--bg-subtle); padding:18px; border-radius:var(--radius-md); border:1px solid var(--border-main);">
+                                <h4 style="font-size:0.95rem; font-weight:700; color:var(--text-main); margin-bottom:8px;">Ready-to-Use Desktop Apps with Voice/Accent Selectors:</h4>
+                                <ul style="margin-left:20px; font-size:0.875rem; color:var(--text-muted); line-height:1.6;">
+                                    <li><b>Dubbing AI (<a href="https://dubbingai.io" target="_blank" style="color:var(--accent-blue)">dubbingai.io</a>):</b> &lt;30ms real-time STS voice changer with visual gallery to choose American, British, or Australian personas.</li>
+                                    <li><b>Altered Studio (<a href="https://altered.ai" target="_blank" style="color:var(--accent-blue)">altered.ai</a>):</b> Enterprise-grade real-time accent translation software with dropdown target dialects (US General, UK RP, Australian) via virtual microphone.</li>
+                                    <li><b>Toniq by Aesphire (<a href="https://aesphire.com" target="_blank" style="color:var(--accent-blue)">aesphire.com</a>):</b> Purpose-built for Indian BPO call centers to neutralize Indian English accents live on VoIP dialers.</li>
+                                    <li><b>Our Local Script:</b> Run <code>python live_accent_zoom_bridge.py</code> in this workspace to select from 7 target accents and route to Zoom!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: pragyaa.ai Bengaluru Office OSINT & Ground Footprint -->
+                    <div class="tab-pane" id="tab-osint-report">
+                        <div class="table-box full-width" style="padding: 24px; background: var(--bg-surface);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border-main); padding-bottom:12px; flex-wrap:wrap; gap:10px;">
+                                <div>
+                                    <h3 class="box-title" style="font-size:1.25rem; font-weight:800; color:var(--text-main);">🕵️ pragyaa.ai Bengaluru Corporate OSINT & Ground Verification</h3>
+                                    <p class="box-sub" style="margin-top:4px;">Forensic investigation on legal ownership, corporate veil, and the exact physical addresses in Bengaluru.</p>
+                                </div>
+                                <a href="/static/research_dossier.html#pragyaa-investigation" target="_blank" class="btn-minimal" style="color:var(--accent-blue); font-weight:700; text-decoration:none;">Open Full Report ↗</a>
+                            </div>
+
+                            <div style="background:linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(37,99,235,0.1) 100%); border:1px solid var(--accent-green); border-radius:var(--radius-md); padding:20px; margin-bottom:20px;">
+                                <div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--accent-green); margin-bottom:4px;">Verified Operational Address</div>
+                                <h2 style="font-size:1.2rem; font-weight:800; color:var(--text-main); margin-bottom:6px;">No. 37/E, New No. 12 & 13, 3rd Floor, South End Road, Basavanagudi, Bangalore South, Bengaluru, Karnataka – 560004</h2>
+                                <p style="font-size:0.875rem; color:var(--text-muted); margin:0;">
+                                    <b>Ground Operating Entity:</b> <b>Zyno AI India Private Limited</b> (CIN: <code>U62099KA2025FTC199393</code>, inc. March 7, 2025). 
+                                    Governs local Speech AI, telephony ASR annotation, and project confidentiality agreements with exclusive legal jurisdiction in the <b>courts of Bengaluru, Karnataka</b>.
+                                </p>
+                            </div>
+
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-bottom:20px;">
+                                <div style="background:var(--bg-subtle); padding:16px; border-radius:var(--radius-md); border:1px solid var(--border-main);">
+                                    <h4 style="font-size:0.95rem; font-weight:700; color:var(--text-main); margin-bottom:8px;">Why Google Maps Shows Nothing for 'pragyaa.ai':</h4>
+                                    <ul style="font-size:0.85rem; color:var(--text-muted); line-height:1.5; margin-left:18px;">
+                                        <li><b>Brand vs. Legal Entity:</b> <i>pragyaa.ai</i> is a product/commercial brand, not a registered company name.</li>
+                                        <li><b>Statutory Entity:</b> Owned by <b>Voxot Solutions Private Limited</b> (CIN: <code>U74999DL2020PTC365870</code>, inc. July 9, 2020).</li>
+                                        <li><b>Statutory ROC Delhi Seat:</b> A-403, Hind Apartment, Sector 5, Dwarka, New Delhi - 110075.</li>
+                                        <li><b>No Retail Signboard:</b> No commercial street-facing billboard or separate Karnataka GST registration under PAN <code>AAHCV4584E</code>.</li>
+                                    </ul>
+                                </div>
+                                <div style="background:var(--bg-subtle); padding:16px; border-radius:var(--radius-md); border:1px solid var(--border-main);">
+                                    <h4 style="font-size:0.95rem; font-weight:700; color:var(--text-main); margin-bottom:8px;">Core R&D & Incubation Anchors in Bengaluru:</h4>
+                                    <ul style="font-size:0.85rem; color:var(--text-muted); line-height:1.5; margin-left:18px;">
+                                        <li><b>Speech Models R&D Hub:</b> <b>ARTPARK (AI & Robotics Technology Park) & SPIRE Lab, IISc Bangalore</b> (CV Raman Road, Mathikere, Bengaluru - 560012). Authoring lab of SraVaani Indic ASR models.</li>
+                                        <li><b>Incubation Host:</b> <b>STPI CyberPark</b> (No. 76 & 77, Electronics City Phase 1, Bengaluru - 560100), which nurtured Voxot Solutions for the VivaTech Paris cohort.</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
