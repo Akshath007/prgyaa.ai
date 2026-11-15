@@ -223,36 +223,92 @@ async function loadSamples() {
 }
 
 // Mobile Responsive Navigation & Fast Switcher
+// Per modern-web-guidance navigation-drawer & form-factor-adaptation
+function openMobileSidebar() {
+    const sidebar = document.getElementById('cyber-sidebar') || document.querySelector('.cyber-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const toggleBtn = document.getElementById('btn-toggle-sidebar');
+    if (sidebar) sidebar.classList.add('open');
+    if (backdrop) backdrop.classList.add('active');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('sidebar-locked');
+}
+
+function closeMobileSidebar() {
+    const sidebar = document.getElementById('cyber-sidebar') || document.querySelector('.cyber-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    const toggleBtn = document.getElementById('btn-toggle-sidebar');
+    if (sidebar) sidebar.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('active');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('sidebar-locked');
+}
+
+function toggleMobileSidebar() {
+    const sidebar = document.getElementById('cyber-sidebar') || document.querySelector('.cyber-sidebar');
+    if (sidebar && sidebar.classList.contains('open')) {
+        closeMobileSidebar();
+    } else {
+        openMobileSidebar();
+    }
+}
+window.openMobileSidebar = openMobileSidebar;
+window.closeMobileSidebar = closeMobileSidebar;
+window.toggleMobileSidebar = toggleMobileSidebar;
+
 function setupMobileNav() {
     const btnToggle = document.getElementById('btn-toggle-sidebar');
     const btnClose = document.getElementById('btn-close-sidebar');
     const backdrop = document.getElementById('sidebar-backdrop');
-    const sidebar = document.querySelector('.sidebar');
+    const sidebar = document.getElementById('cyber-sidebar') || document.querySelector('.cyber-sidebar');
 
-    function openSidebar() {
-        sidebar?.classList.add('open');
-        backdrop?.classList.add('active');
-        document.body.classList.add('sidebar-open-locked');
-    }
+    btnToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileSidebar();
+    });
 
-    function closeSidebar() {
-        sidebar?.classList.remove('open');
-        backdrop?.classList.remove('active');
-        document.body.classList.remove('sidebar-open-locked');
-    }
+    btnClose?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeMobileSidebar();
+    });
 
-    btnToggle?.addEventListener('click', openSidebar);
-    btnClose?.addEventListener('click', closeSidebar);
-    backdrop?.addEventListener('click', closeSidebar);
+    backdrop?.addEventListener('click', () => {
+        closeMobileSidebar();
+    });
 
-    // Setup mobile quick-model horizontal bar chips
-    const mobileChips = document.querySelectorAll('.mobile-model-chip');
-    mobileChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            const modelKey = chip.getAttribute('data-model');
-            if (modelKey) {
-                selectModel(modelKey);
+    // Escape key closes mobile drawer
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMobileSidebar();
+        }
+    });
+
+    // Touch swipe left gesture on drawer to close (touch navigation)
+    if (sidebar) {
+        let touchStartX = 0;
+        let touchCurrentX = 0;
+
+        sidebar.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchCurrentX = touchStartX;
+        }, { passive: true });
+
+        sidebar.addEventListener('touchmove', (e) => {
+            touchCurrentX = e.touches[0].clientX;
+        }, { passive: true });
+
+        sidebar.addEventListener('touchend', () => {
+            // If swiped left by > 45px, close
+            if (touchStartX - touchCurrentX > 45) {
+                closeMobileSidebar();
             }
+        });
+    }
+
+    // Auto close drawer when any sidebar link is clicked
+    document.querySelectorAll('.sidebar-nav .nav-item-btn, .user-profile-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+            closeMobileSidebar();
         });
     });
 }
@@ -1141,6 +1197,7 @@ function switchMainGroup(groupKey, resetCatalog = true) {
 // =====================================================================
 function openModelDetail(modelKey) {
     if (!MODEL_SPECS[modelKey]) return;
+    closeMobileSidebar();
     
     // 1. Ensure Module 1 view is active
     switchMainGroup('telephony-stt', false);
@@ -1184,6 +1241,7 @@ window.closeModelDetail = closeModelDetail;
 // CYBER DASHBOARD NAVIGATION & INTERACTIVE DRILL-DOWN
 // =====================================================================
 function switchCyberView(viewId) {
+    closeMobileSidebar();
     // 1. Update Sidebar Active Button
     const navButtons = document.querySelectorAll('.nav-item-btn');
     navButtons.forEach(btn => {

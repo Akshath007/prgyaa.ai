@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>pragyaa.ai | Akshath H P - AI Engineering &amp; Research Hub</title>
     <!-- Premium Minimalist Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/static/style.css?v=7">
+    <link rel="stylesheet" href="/static/style.css?v=8">
 </head>
 <body>
     <div class="app-container">
         <!-- =====================================================================
              1. LEFT CYBER SIDEBAR (Matches Reference UI)
              ===================================================================== -->
-        <aside class="cyber-sidebar">
+        <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+        <aside class="cyber-sidebar" id="cyber-sidebar" role="dialog" aria-modal="true" aria-label="Main Navigation">
+            <button class="btn-close-sidebar" id="btn-close-sidebar" aria-label="Close menu">&times;</button>
             <div class="sidebar-top-group">
                 <!-- Brand Logo Section -->
                 <div class="brand-section">
@@ -85,6 +87,18 @@
         <main class="cyber-main">
             <!-- Top App Header -->
             <header class="cyber-header">
+                <div class="header-left-group">
+                    <button class="btn-hamburger" id="btn-toggle-sidebar" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="cyber-sidebar">
+                        <span class="hamburger-bar"></span>
+                        <span class="hamburger-bar"></span>
+                        <span class="hamburger-bar"></span>
+                    </button>
+                    <div class="header-mobile-brand" onclick="switchCyberView('dashboard')">
+                        <span class="brand-sparkle">✦</span>
+                        <span class="brand-text">pragyaa</span>
+                    </div>
+                </div>
+
                 <div class="search-box-wrap">
                     <span class="search-icon-left">🔍</span>
                     <input type="text" class="search-input" id="cyber-search-input" placeholder="Search projects, research, or tools..." oninput="handleCyberSearch(this.value)">
@@ -1505,7 +1519,7 @@
                                     <!-- =====================================================================
                      MODULE 3: MULTILINGUAL & KURDISH SPEECH SYNTHESIS (TTS)
                      ===================================================================== -->
-                <div id="view-kurdish-tts" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-kurdish">
+                <div id="view-kurdish-tts" class="main-group-view" role="tabpanel" aria-labelledby="tab-module-kurdish">
                     <!-- Kurdish Hero Banner -->
                     <section class="model-hero" style="border-left: 4px solid #059669;">
                         <div class="hero-header">
@@ -1633,7 +1647,7 @@
                                     <!-- =====================================================================
                      MODULE 4: ENGINEERING JOURNAL, HARD REALITIES & TAKEAWAYS
                      ===================================================================== -->
-                <div id="view-engineering-journal" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-journal">
+                <div id="view-engineering-journal" class="main-group-view" role="tabpanel" aria-labelledby="tab-module-journal">
                     <!-- Journal Hero Banner -->
                     <section class="model-hero" style="border-left: 4px solid #0284c7;">
                         <div class="hero-header">
@@ -1767,6 +1781,6 @@
         </main>
     </div>
 
-    <script src="/static/app.js?v=8"></script>
+    <script src="/static/app.js?v=9"></script>
 </body>
 </html>
