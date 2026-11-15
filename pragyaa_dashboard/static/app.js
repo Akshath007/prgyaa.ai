@@ -1178,3 +1178,120 @@ function closeModelDetail() {
 }
 window.openModelDetail = openModelDetail;
 window.closeModelDetail = closeModelDetail;
+
+
+// =====================================================================
+// CYBER DASHBOARD NAVIGATION & INTERACTIVE DRILL-DOWN
+// =====================================================================
+function switchCyberView(viewId) {
+    // 1. Update Sidebar Active Button
+    const navButtons = document.querySelectorAll('.nav-item-btn');
+    navButtons.forEach(btn => {
+        if (btn.id === `nav-cyber-${viewId}`) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // 2. Hide all view panes
+    document.querySelectorAll('.cyber-view-pane').forEach(pane => {
+        pane.classList.add('hidden');
+    });
+
+    // 3. Map view alias to actual target pane
+    let targetPaneId = `view-cyber-${viewId}`;
+    if (viewId === 'projects') {
+        targetPaneId = 'view-cyber-models';
+        const modelsBtn = document.getElementById('nav-cyber-models');
+        if (modelsBtn) modelsBtn.classList.add('active');
+    } else if (viewId === 'servers') {
+        targetPaneId = 'view-cyber-tools';
+        const toolsBtn = document.getElementById('nav-cyber-tools');
+        if (toolsBtn) toolsBtn.classList.add('active');
+    }
+
+    const targetPane = document.getElementById(targetPaneId);
+    if (targetPane) {
+        targetPane.classList.remove('hidden');
+    }
+
+    // 4. Scroll viewport smoothly to top
+    const viewport = document.querySelector('.cyber-scroll-viewport');
+    if (viewport) {
+        viewport.scrollTop = 0;
+    }
+
+    // 5. If switching to models view, ensure catalog grid is visible by default
+    if (viewId === 'models' || viewId === 'projects') {
+        const catalogView = document.getElementById('stt-catalog-view');
+        const detailView = document.getElementById('stt-model-detail');
+        if (catalogView && detailView && !currentModel) {
+            catalogView.classList.remove('hidden');
+            detailView.classList.add('hidden');
+        }
+    }
+}
+window.switchCyberView = switchCyberView;
+
+function openModelDetail(modelKey) {
+    if (!MODEL_SPECS[modelKey]) return;
+
+    // 1. Ensure models view is active
+    switchCyberView('models');
+
+    // 2. Hide catalog, show detail
+    const catalogView = document.getElementById('stt-catalog-view');
+    const detailView = document.getElementById('stt-model-detail');
+    if (catalogView) catalogView.classList.add('hidden');
+    if (detailView) detailView.classList.remove('hidden');
+
+    // 3. Select model and update scorecards
+    selectModel(modelKey);
+
+    // 4. Scroll smoothly to top
+    const viewport = document.querySelector('.cyber-scroll-viewport');
+    if (viewport) viewport.scrollTop = 0;
+}
+window.openModelDetail = openModelDetail;
+
+function closeModelDetail() {
+    const catalogView = document.getElementById('stt-catalog-view');
+    const detailView = document.getElementById('stt-model-detail');
+    if (catalogView) catalogView.classList.remove('hidden');
+    if (detailView) detailView.classList.add('hidden');
+
+    const viewport = document.querySelector('.cyber-scroll-viewport');
+    if (viewport) viewport.scrollTop = 0;
+}
+window.closeModelDetail = closeModelDetail;
+
+function handleCyberSearch(query) {
+    const q = (query || '').toLowerCase().trim();
+    if (!q) {
+        document.querySelectorAll('.catalog-card, .project-feature-card').forEach(el => {
+            el.style.display = '';
+        });
+        return;
+    }
+
+    // If searching, jump to models view
+    const currentActivePane = document.querySelector('.cyber-view-pane:not(.hidden)');
+    if (currentActivePane && currentActivePane.id === 'view-cyber-dashboard') {
+        switchCyberView('models');
+        const catalogView = document.getElementById('stt-catalog-view');
+        const detailView = document.getElementById('stt-model-detail');
+        if (catalogView) catalogView.classList.remove('hidden');
+        if (detailView) detailView.classList.add('hidden');
+    }
+
+    document.querySelectorAll('.catalog-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(q)) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+window.handleCyberSearch = handleCyberSearch;

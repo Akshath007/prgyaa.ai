@@ -3,271 +3,398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pragyaa.ai | Speech-to-Text Benchmark & Telephony Evaluation</title>
+    <title>pragyaa.ai | Akshath H P - AI Engineering &amp; Research Hub</title>
     <!-- Premium Minimalist Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/static/style.css?v=5">
+    <link rel="stylesheet" href="/static/style.css?v=7">
 </head>
 <body>
-    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
-    <div class="app-layout">
-        <!-- Minimal High-Density Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="brand">
-                    <span class="brand-bold">pragyaa</span><span class="brand-sub">.ai</span>
+    <div class="app-container">
+        <!-- =====================================================================
+             1. LEFT CYBER SIDEBAR (Matches Reference UI)
+             ===================================================================== -->
+        <aside class="cyber-sidebar">
+            <div class="sidebar-top-group">
+                <!-- Brand Logo Section -->
+                <div class="brand-section">
+                    <div class="brand-title-wrap">
+                        <span class="brand-sparkle">✦</span>
+                        <span class="brand-text">pragyaa.ai</span>
+                    </div>
+                    <div class="brand-tagline">Build • Research • Innovate</div>
                 </div>
-                <div class="sidebar-header-right">
-                    <span class="badge-env">STT Core</span>
-                    <button class="btn-close-sidebar" id="btn-close-sidebar" aria-label="Close Sidebar">&times;</button>
-                </div>
+
+                <!-- Navigation Links -->
+                <nav class="sidebar-nav">
+                    <button class="nav-item-btn active" id="nav-cyber-dash" onclick="switchCyberView('dashboard')">
+                        <span class="nav-icon">🏠</span>
+                        <span>Dashboard</span>
+                    </button>
+                    <button class="nav-item-btn" id="nav-cyber-models" onclick="switchCyberView('models')">
+                        <span class="nav-icon">🧊</span>
+                        <span>Models</span>
+                    </button>
+                    <button class="nav-item-btn" id="nav-cyber-projects" onclick="switchCyberView('projects')">
+                        <span class="nav-icon">📁</span>
+                        <span>Projects</span>
+                    </button>
+                    <button class="nav-item-btn" id="nav-cyber-research" onclick="switchCyberView('research')">
+                        <span class="nav-icon">⚗️</span>
+                        <span>Research</span>
+                    </button>
+                    <button class="nav-item-btn" id="nav-cyber-learning" onclick="switchCyberView('learning')">
+                        <span class="nav-icon">📖</span>
+                        <span>Learning</span>
+                    </button>
+                    <button class="nav-item-btn" id="nav-cyber-tools" onclick="switchCyberView('tools')">
+                        <span class="nav-icon">🛠️</span>
+                        <span>Tools</span>
+                    </button>
+                    <button class="nav-item-btn" id="nav-cyber-servers" onclick="switchCyberView('servers')">
+                        <span class="nav-icon">🖥️</span>
+                        <span>Servers</span>
+                    </button>
+                </nav>
             </div>
 
-                        <div class="sidebar-menu">
-                <!-- MODULE 1: TELEPHONY STT MODELS -->
-                <div class="sidebar-group-header">
-                    <span class="group-header-text">1. Telephony STT (6 Models)</span>
-                    <span class="badge-mini blue">8kHz</span>
-                </div>
-                
-                <!-- 1. Bodhan Indic-Core 1.2B -->
-                <div class="model-nav-item active" id="nav-model-bodhan" data-model="bodhan">
-                    <div class="model-nav-dot dot-green"></div>
-                    <div class="model-nav-info">
-                        <div class="model-nav-title-row">
-                            <span class="model-nav-name">Bodhan Indic-Core</span>
-                            <span class="mini-score green">91.2% Acc</span>
-                        </div>
-                        <span class="model-nav-meta">1.2B • 8.8% WER • 8kHz Native</span>
+            <!-- Bottom Motivational & User Profile -->
+            <div class="sidebar-bottom">
+                <div class="motivational-card">
+                    <div class="motivational-header">
+                        <span class="motivational-title">Keep building...</span>
+                        <span>🚀</span>
                     </div>
+                    <div class="motivational-sub">Your AI journey looks amazing!</div>
                 </div>
 
-                <!-- 2. Sarvam AI Saarika v1 -->
-                <div class="model-nav-item" id="nav-model-sarvam" data-model="sarvam_saarika">
-                    <div class="model-nav-dot dot-blue"></div>
-                    <div class="model-nav-info">
-                        <div class="model-nav-title-row">
-                            <span class="model-nav-name">Sarvam Saarika v1</span>
-                            <span class="mini-score blue">92.5% Acc</span>
-                        </div>
-                        <span class="model-nav-meta">Cloud API • 7.5% WER • 400ms</span>
+                <div class="user-profile-pill" onclick="switchCyberView('dashboard')">
+                    <div class="user-avatar">AH</div>
+                    <div class="user-info">
+                        <span class="user-name">Akshath H P</span>
+                        <span class="user-role">B.E. AIML • 2026</span>
                     </div>
-                </div>
-
-                <!-- 3. Google Gemini 3.5 Flash -->
-                <div class="model-nav-item" id="nav-model-gemini" data-model="gemini_flash">
-                    <div class="model-nav-dot dot-purple"></div>
-                    <div class="model-nav-info">
-                        <div class="model-nav-title-row">
-                            <span class="model-nav-name">Gemini 3.5 Flash</span>
-                            <span class="mini-score purple">97.9% Acc</span>
-                        </div>
-                        <span class="model-nav-meta">Reference • 2.1% WER • 163s</span>
-                    </div>
-                </div>
-
-                <!-- 4. NVIDIA Nemotron-v12 -->
-                <div class="model-nav-item" id="nav-model-nemotron" data-model="nemotron">
-                    <div class="model-nav-dot dot-amber"></div>
-                    <div class="model-nav-info">
-                        <div class="model-nav-title-row">
-                            <span class="model-nav-name">Nemotron-Hinglish</span>
-                            <span class="mini-score amber">21.5% Acc</span>
-                        </div>
-                        <span class="model-nav-meta">600M • 80ms Streaming • 16kHz</span>
-                    </div>
-                </div>
-
-                <!-- 5. OpenAI Whisper Turbo -->
-                <div class="model-nav-item" id="nav-model-whisper" data-model="whisper_turbo">
-                    <div class="model-nav-dot dot-orange"></div>
-                    <div class="model-nav-info">
-                        <div class="model-nav-title-row">
-                            <span class="model-nav-name">Whisper-v3-Turbo</span>
-                            <span class="mini-score orange">35.8% Acc</span>
-                        </div>
-                        <span class="model-nav-meta">809M • 64.2% WER • Loop Risk</span>
-                    </div>
-                </div>
-
-                <!-- 6. Alibaba Qwen2-Audio -->
-                <div class="model-nav-item" id="nav-model-qwen" data-model="qwen2_audio">
-                    <div class="model-nav-dot dot-red"></div>
-                    <div class="model-nav-info">
-                        <div class="model-nav-title-row">
-                            <span class="model-nav-name">Qwen2-Audio-7B</span>
-                            <span class="mini-score red">0.0% Acc</span>
-                        </div>
-                        <span class="model-nav-meta">7.0B • No Hindi • Hallucinates</span>
-                    </div>
-                </div>
-
-                <!-- MODULE 2: ACCENT AI & S2S -->
-                <div class="sidebar-group-header">
-                    <span class="group-header-text">2. Real-Time Accent AI</span>
-                    <span class="badge-mini purple">Sanas</span>
-                </div>
-                
-                <div class="sidebar-nav-item" id="nav-accent-sanas" data-group="accent-ai">
-                    <span class="sidebar-item-icon">🎙️</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">Sanas.ai Deep-Dive</span>
-                        <span class="sidebar-item-sub">Formant shifting vs Gemini</span>
-                    </div>
-                </div>
-
-                <div class="sidebar-nav-item" id="nav-accent-bridge" data-group="accent-ai">
-                    <span class="sidebar-item-icon">⚡</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">7-Accent Zoom Bridge</span>
-                        <span class="sidebar-item-sub">Local Kokoro / gTTS script</span>
-                    </div>
-                </div>
-
-                <div class="sidebar-nav-item" id="nav-accent-apps" data-group="accent-ai">
-                    <span class="sidebar-item-icon">💻</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">Desktop Apps &amp; Tools</span>
-                        <span class="sidebar-item-sub">Dubbing AI / Altered Studio</span>
-                    </div>
-                </div>
-
-                <!-- MODULE 3: KURDISH & MULTILINGUAL TTS -->
-                <div class="sidebar-group-header">
-                    <span class="group-header-text">3. Multilingual &amp; Kurdish</span>
-                    <span class="badge-mini green">4 Demos</span>
-                </div>
-
-                <div class="sidebar-nav-item" id="nav-kurdish-mms" data-group="kurdish-tts">
-                    <span class="sidebar-item-icon">🌍</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">Meta MMS VITS Server</span>
-                        <span class="sidebar-item-sub">Local Kurdish synthesis</span>
-                    </div>
-                </div>
-
-                <div class="sidebar-nav-item" id="nav-kurdish-f5" data-group="kurdish-tts">
-                    <span class="sidebar-item-icon">🧬</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">F5-TTS Voice Cloning</span>
-                        <span class="sidebar-item-sub">Flow Matching models</span>
-                    </div>
-                </div>
-
-                <div class="sidebar-nav-item" id="nav-kurdish-audio" data-group="kurdish-tts">
-                    <span class="sidebar-item-icon">🎧</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">Aranemini &amp; Audio8</span>
-                        <span class="sidebar-item-sub">Playable audio gallery</span>
-                    </div>
-                </div>
-
-                <!-- MODULE 4: ENGINEERING JOURNAL -->
-                <div class="sidebar-group-header">
-                    <span class="group-header-text">4. Engineering Journal</span>
-                    <span class="badge-mini cyan">Takeaways</span>
-                </div>
-
-                <div class="sidebar-nav-item" id="nav-journal-lessons" data-group="engineering-journal">
-                    <span class="sidebar-item-icon">💡</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">Production Lessons</span>
-                        <span class="sidebar-item-sub">The 8kHz &amp; Sanas truths</span>
-                    </div>
-                </div>
-
-                <div class="sidebar-nav-item" id="nav-journal-commands" data-group="engineering-journal">
-                    <span class="sidebar-item-icon">🚀</span>
-                    <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">Command Launcher</span>
-                        <span class="sidebar-item-sub">Direct terminal scripts</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar-footer">
-                <div class="hw-item">
-                    <span class="hw-label">Benchmark Audio</span>
-                    <span class="hw-val">Kotak Telephony (290.16s / 8kHz)</span>
-                </div>
-                <div class="hw-item" style="margin-top: 6px;">
-                    <span class="hw-label">GPU Rig</span>
-                    <span class="hw-val"><span class="dot-live"></span> Tesla T4 (FP16 / PyTorch 2.5)</span>
+                    <span class="profile-arrow">›</span>
                 </div>
             </div>
         </aside>
 
-        <!-- Main Dashboard Viewport -->
-        <main class="main-content">
-            <!-- Top Minimal Navbar -->
-            <header class="top-nav">
-                <div class="top-nav-left">
-                    <button class="btn-hamburger" id="btn-toggle-sidebar" aria-label="Toggle Model Menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                    <div class="nav-breadcrumbs">
-                        <span class="crumb-dim">Speech-to-Text</span>
-                        <span class="crumb-slash">/</span>
-                        <span class="crumb-dim">8kHz Telephony</span>
-                        <span class="crumb-slash">/</span>
-                        <span class="crumb-active" id="crumb-active-model">Bodhan Indic-Transcribe-Core (1.2B)</span>
-                    </div>
+        <!-- =====================================================================
+             2. MAIN VIEWPORT CONTAINER
+             ===================================================================== -->
+        <main class="cyber-main">
+            <!-- Top App Header -->
+            <header class="cyber-header">
+                <div class="search-box-wrap">
+                    <span class="search-icon-left">🔍</span>
+                    <input type="text" class="search-input" id="cyber-search-input" placeholder="Search projects, research, or tools..." oninput="handleCyberSearch(this.value)">
+                    <span class="kbd-shortcut">⌘ K</span>
                 </div>
-                <div class="nav-actions">
-                    <button class="btn-minimal btn-hide-mobile" id="btn-sync-benchmark" title="Check for downloaded Colab benchmark results">⚡ Sync</button>
-                    <button class="btn-minimal btn-hide-mobile" id="btn-export-json">JSON</button>
-                    <a href="/static/research_dossier.html" target="_blank" class="btn-minimal" style="text-decoration:none; display:inline-flex; align-items:center; color:#2563eb; font-weight:700;">🔬 Research Dossier</a>
-                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.docx" download class="btn-minimal" style="text-decoration:none; display:inline-flex; align-items:center;">📄 Word</a>
-                    <a href="/static/Bodhan_Second_by_Second_Transcript_Report.pdf" target="_blank" class="btn-dark" style="text-decoration:none; display:inline-flex; align-items:center;">📥 PDF</a>
+
+                <div class="header-right-actions">
+                    <button class="btn-icon-ghost" title="Toggle Theme">☀️</button>
+                    <button class="btn-icon-ghost" title="Notifications">🔔</button>
+                    <div class="research-mode-pill">
+                        <span class="live-green-pulse"></span>
+                        <span>Research Mode</span>
+                    </div>
+                    <a href="/static/research_dossier.html" target="_blank" class="btn-minimal" style="color:var(--neon-teal); text-decoration:none; font-size:0.8rem; font-weight:700; margin-left:8px;">
+                        📑 Dossier ↗
+                    </a>
                 </div>
             </header>
 
-            <!-- PRIMARY TOP MODULE NAVIGATION BAR -->
-            <div class="primary-group-bar" id="primary-group-bar" role="tablist" aria-label="AI Speech Engineering Modules">
-                <button class="group-tab active" data-group="telephony-stt" id="tab-module-telephony" role="tab" aria-selected="true" type="button">
-                    <span class="group-icon">📊</span>
-                    <span>1. Telephony STT (8kHz)</span>
-                    <span class="badge-mini blue">6 Models</span>
-                </button>
-                <button class="group-tab group-tab-accent" data-group="accent-ai" id="tab-module-accent" role="tab" aria-selected="false" type="button">
-                    <span class="group-icon">🎙️</span>
-                    <span>2. Real-Time Accent AI</span>
-                    <span class="badge-mini purple">Sanas &amp; S2S</span>
-                </button>
-                <button class="group-tab group-tab-kurdish" data-group="kurdish-tts" id="tab-module-kurdish" role="tab" aria-selected="false" type="button">
-                    <span class="group-icon">🌍</span>
-                    <span>3. Multilingual &amp; Kurdish</span>
-                    <span class="badge-mini green">4 Audio Demos</span>
-                </button>
-                <button class="group-tab group-tab-journal" data-group="engineering-journal" id="tab-module-journal" role="tab" aria-selected="false" type="button">
-                    <span class="group-icon">📓</span>
-                    <span>4. Engineering Journal</span>
-                    <span class="badge-mini cyan">Takeaways &amp; Logs</span>
-                </button>
-                <a href="/static/research_dossier.html" target="_blank" class="group-tab group-link" id="link-dossier" title="Open complete printable research dossier">
-                    <span>📑 Full Dossier ↗</span>
-                </a>
-            </div>
-
-            <div class="scroll-area">
-
+            <!-- Scroll Viewport Container -->
+            <div class="cyber-scroll-viewport">
                 <!-- =====================================================================
-                     GROUP 1: 8kHz TELEPHONY STT EVALUATION MODELS
+                     VIEW 1: MASTER HOME DASHBOARD (Exact Match with Reference Image)
                      ===================================================================== -->
-                <div id="view-telephony-stt" class="main-group-view" role="tabpanel" aria-labelledby="tab-module-telephony">
-                    <!-- CATALOG VIEW: Grid of 6 Models -->
-                    <div id="stt-catalog-view" class="stt-catalog-wrapper">
-                    <!-- Category Intro Header -->
-                    <div class="category-intro">
-                        <h2 class="category-intro-title">🎙️ Speech to Text Models (8kHz Telephony Benchmark)</h2>
-                        <p class="category-intro-sub">Click any model below to explore its architecture, telephony accuracy, live audio player, and second-by-second transcripts.</p>
+                <div id="view-cyber-dashboard" class="cyber-view-pane">
+                    <!-- Hero Greeting Banner -->
+                    <div class="hero-greeting-container">
+                        <div class="hero-left-accent">
+                            <div class="hero-vertical-bar"></div>
+                            <div>
+                                <div class="hero-greet-small">Good Morning,</div>
+                                <h1 class="hero-name-big">Akshath 👋</h1>
+                                <div class="hero-sub-text">Engineering AI. Building what matters.</div>
+                            </div>
+                        </div>
+                        <div class="hero-right-slogan">
+                            "Dream. Build. Deploy." —
+                        </div>
                     </div>
 
-                    <!-- 6 Model Cards Grid -->
-<div class="catalog-grid" id="stt-models-catalog">
+                    <!-- 4 Stat KPI Cards Row -->
+                    <div class="kpi-row-grid">
+                        <!-- KPI 1 -->
+                        <div class="kpi-card teal" onclick="switchCyberView('projects')">
+                            <div class="kpi-left-group">
+                                <div class="kpi-icon-square teal">🧊</div>
+                                <div class="kpi-text-block">
+                                    <span class="kpi-big-number">4</span>
+                                    <span class="kpi-label-text">Projects &amp; Research</span>
+                                </div>
+                            </div>
+                            <div class="kpi-right-trend">
+                                <span class="trend-badge teal">↑ +1</span>
+                                <svg class="mini-sparkline" viewBox="0 0 50 18">
+                                    <path d="M0,14 Q15,4 25,10 T50,2" fill="none" stroke="var(--neon-teal)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- KPI 2 -->
+                        <div class="kpi-card purple" onclick="switchCyberView('models')">
+                            <div class="kpi-left-group">
+                                <div class="kpi-icon-square purple">🔉</div>
+                                <div class="kpi-text-block">
+                                    <span class="kpi-big-number">8+</span>
+                                    <span class="kpi-label-text">Models Tested</span>
+                                </div>
+                            </div>
+                            <div class="kpi-right-trend">
+                                <span class="trend-badge purple">↑ +2</span>
+                                <svg class="mini-sparkline" viewBox="0 0 50 18">
+                                    <path d="M0,16 Q15,12 28,6 T50,3" fill="none" stroke="var(--neon-purple)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- KPI 3 -->
+                        <div class="kpi-card amber" onclick="switchCyberView('research')">
+                            <div class="kpi-left-group">
+                                <div class="kpi-icon-square amber">⚗️</div>
+                                <div class="kpi-text-block">
+                                    <span class="kpi-big-number">3</span>
+                                    <span class="kpi-label-text">Research Papers</span>
+                                </div>
+                            </div>
+                            <div class="kpi-right-trend">
+                                <svg class="mini-sparkline" viewBox="0 0 50 18">
+                                    <path d="M0,12 Q18,16 32,8 T50,4" fill="none" stroke="var(--neon-amber)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- KPI 4 -->
+                        <div class="kpi-card orange" onclick="switchCyberView('servers')">
+                            <div class="kpi-left-group">
+                                <div class="kpi-icon-square orange">🚀</div>
+                                <div class="kpi-text-block">
+                                    <span class="kpi-big-number">2</span>
+                                    <span class="kpi-label-text">Deployments</span>
+                                </div>
+                            </div>
+                            <div class="kpi-right-trend">
+                                <svg class="mini-sparkline" viewBox="0 0 50 18">
+                                    <path d="M0,15 Q20,10 35,6 T50,2" fill="none" stroke="var(--neon-orange)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Projects Section (3 Big Cards) -->
+                    <div>
+                        <div class="section-header-row">
+                            <div class="section-title-wrap">
+                                <span class="title-star">✦</span>
+                                <span>My Projects</span>
+                            </div>
+                            <span class="btn-view-all" onclick="switchCyberView('projects')">View All →</span>
+                        </div>
+
+                        <div class="projects-cards-grid">
+                            <!-- Project 1 (Teal): 8kHz Telephony STT Benchmark -->
+                            <div class="project-feature-card card-teal" onclick="switchCyberView('models')">
+                                <svg class="card-ambient-wave" viewBox="0 0 140 230" fill="none">
+                                    <path d="M140,0 C60,60 100,160 0,230 L140,230 Z" fill="url(#tealWaveGlow)"/>
+                                    <defs>
+                                        <linearGradient id="tealWaveGlow" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#10b981" stop-opacity="0.3"/>
+                                            <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.05"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div>
+                                    <div class="project-card-top">
+                                        <div class="project-circle-icon teal">🎙️</div>
+                                        <span class="project-tag-pill">Research</span>
+                                    </div>
+                                    <h3 class="project-title">8kHz Telephony STT Benchmark</h3>
+                                    <p class="project-desc">Two-stage confidence evaluation pipeline for Indian narrowband telephony (Kotak, HDFC, Airtel).</p>
+                                </div>
+                                <div class="project-footer-row">
+                                    <div class="project-metrics-chips">
+                                        <div class="metric-chip-item"><span>📊</span> <strong>91.2%</strong> Acc.</div>
+                                        <div class="metric-chip-item"><span>⚡</span> <strong>42s</strong> Latency</div>
+                                        <div class="metric-chip-item"><span>💾</span> <strong>1.2B</strong> Params</div>
+                                    </div>
+                                    <button class="btn-circle-arrow">→</button>
+                                </div>
+                            </div>
+
+                            <!-- Project 2 (Purple): Real-Time Accent AI -->
+                            <div class="project-feature-card card-purple" onclick="switchCyberView('research')">
+                                <svg class="card-ambient-wave" viewBox="0 0 140 230" fill="none">
+                                    <path d="M140,0 C40,80 120,180 10,230 L140,230 Z" fill="url(#purpleWaveGlow)"/>
+                                    <defs>
+                                        <linearGradient id="purpleWaveGlow" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.35"/>
+                                            <stop offset="100%" stop-color="#a855f7" stop-opacity="0.05"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div>
+                                    <div class="project-card-top">
+                                        <div class="project-circle-icon purple">💬</div>
+                                        <span class="project-tag-pill">Research</span>
+                                    </div>
+                                    <h3 class="project-title">Real-Time Accent AI (Sanas.ai)</h3>
+                                    <p class="project-desc">Acoustic formant resonance shifting (&lt;100ms) vs Gemini Live vs 7-accent local Zoom bridge.</p>
+                                </div>
+                                <div class="project-footer-row">
+                                    <div class="project-metrics-chips">
+                                        <div class="metric-chip-item"><span>🎙️</span> <strong>Real-time</strong> S2S-DSP</div>
+                                        <div class="metric-chip-item"><span>⚡</span> <strong>7 Accents</strong></div>
+                                    </div>
+                                    <button class="btn-circle-arrow">→</button>
+                                </div>
+                            </div>
+
+                            <!-- Project 3 (Amber): Kurdish TTS & Voice Clone -->
+                            <div class="project-feature-card card-amber" onclick="switchCyberView('learning')">
+                                <svg class="card-ambient-wave" viewBox="0 0 140 230" fill="none">
+                                    <circle cx="120" cy="115" r="70" stroke="url(#amberRingGlow)" stroke-width="4" fill="none"/>
+                                    <defs>
+                                        <linearGradient id="amberRingGlow" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.5"/>
+                                            <stop offset="100%" stop-color="#f97316" stop-opacity="0.1"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div>
+                                    <div class="project-card-top">
+                                        <div class="project-circle-icon amber">⌚</div>
+                                        <span class="project-tag-pill">Multilingual</span>
+                                    </div>
+                                    <h3 class="project-title">Kurdish TTS &amp; Voice Clone</h3>
+                                    <p class="project-desc">Meta MMS VITS server, F5-TTS flow matching, Aranemini studio voices, &amp; 4 playable demos.</p>
+                                </div>
+                                <div class="project-footer-row">
+                                    <div class="project-metrics-chips">
+                                        <div class="metric-chip-item"><span>📻</span> <strong>4 Audio</strong> Demos</div>
+                                        <div class="metric-chip-item"><span>📱</span> <strong>Local API</strong></div>
+                                    </div>
+                                    <button class="btn-circle-arrow">→</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom 3 Tracking Widgets Row -->
+                    <div class="bottom-widgets-grid">
+                        <!-- Widget 1: Learning Progress -->
+                        <div class="widget-glass-card">
+                            <div class="widget-card-header">
+                                <span class="widget-card-title">📊 Learning Progress</span>
+                                <span style="font-size:0.75rem; color:var(--text-muted);">This Month ⌵</span>
+                            </div>
+                            <div class="progress-ring-row">
+                                <div class="radial-progress-wrap">
+                                    <svg class="radial-progress-svg" viewBox="0 0 80 80">
+                                        <circle class="radial-track" cx="40" cy="40" r="35"/>
+                                        <circle class="radial-fill" cx="40" cy="40" r="35"/>
+                                    </svg>
+                                    <span class="radial-percent-text">78%</span>
+                                </div>
+                                <div class="checklist-items">
+                                    <div class="check-item done"><span class="check-icon">✔</span> Study Voice Agents</div>
+                                    <div class="check-item done"><span class="check-icon">✔</span> Explore STT Models</div>
+                                    <div class="check-item"><span class="check-icon">○</span> Build Production Demo</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Widget 2: Recent Activity -->
+                        <div class="widget-glass-card">
+                            <div class="widget-card-header">
+                                <span class="widget-card-title">⚡ Recent Activity</span>
+                                <span class="btn-view-all" onclick="switchCyberView('tools')">View All →</span>
+                            </div>
+                            <div class="timeline-items-list">
+                                <div class="timeline-item">
+                                    <div class="timeline-left">
+                                        <span class="timeline-dot gold"></span>
+                                        <div class="timeline-text-wrap">
+                                            <span class="timeline-desc">Updated STT Benchmark Dashboard</span>
+                                            <span class="timeline-date">Nov 14 • 2:30 PM</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge-status-chip green">Completed</span>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-left">
+                                        <span class="timeline-dot blue"></span>
+                                        <div class="timeline-text-wrap">
+                                            <span class="timeline-desc">Ran Gemini 3.5 Flash on noisy audio</span>
+                                            <span class="timeline-date">Nov 12 • 6:20 PM</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge-status-chip purple">Research</span>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-left">
+                                        <span class="timeline-dot cyan"></span>
+                                        <div class="timeline-text-wrap">
+                                            <span class="timeline-desc">Explored Kurdish TTS options</span>
+                                            <span class="timeline-date">Nov 10 • 1:15 PM</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge-status-chip blue">Exploration</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Widget 3: Achievements -->
+                        <div class="widget-glass-card">
+                            <div class="widget-card-header">
+                                <span class="widget-card-title">🏆 Achievements</span>
+                                <span class="btn-view-all">View All →</span>
+                            </div>
+                            <div class="achievements-row">
+                                <div class="achievement-item">
+                                    <div class="achievement-icon-circle yellow">⭐</div>
+                                    <span class="achievement-title">First Research Paper</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <div class="achievement-icon-circle cyan">🧊</div>
+                                    <span class="achievement-title">Built 3+ Projects</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <div class="achievement-icon-circle orange">🚀</div>
+                                    <span class="achievement-title">Explored 10+ Models</span>
+                                </div>
+                                <div class="achievement-item">
+                                    <div class="achievement-icon-circle gold">👑</div>
+                                    <span class="achievement-title">AI Explorer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =====================================================================
+                     VIEW 2: STT MODELS EXPLORER (Catalog Grid & Interactive Drill-Down)
+                     ===================================================================== -->
+                <div id="view-cyber-models" class="cyber-view-pane hidden">
+                    <!-- CATALOG VIEW: 6 Model Cards -->
+                    <div id="stt-catalog-view" class="stt-catalog-wrapper">
+                        <div class="category-intro">
+                            <h2 class="category-intro-title">🎙️ 8kHz Telephony STT Models (6 Evaluated)</h2>
+                            <p class="category-intro-sub">Click any model below to inspect its architecture, telephony accuracy, live audio player, and second-by-second transcripts.</p>
+                        </div>
+                        <div class="catalog-grid" id="stt-models-catalog">
 
         <div class="catalog-card" data-model="bodhan" onclick="openModelDetail('bodhan')">
             <div class="catalog-card-header">
@@ -434,34 +561,23 @@
 
                     </div>
 
-                    <!-- DETAIL VIEW: Single Model Deep Dive (Opened on Click) -->
+                    <!-- DETAIL VIEW: Single Model Deep Dive -->
                     <div id="stt-model-detail" class="model-detail-wrapper hidden">
-
-                    <!-- Back Button & Quick Switcher -->
-                    <div class="detail-nav-header">
-                        <button class="btn-back-catalog" id="btn-back-to-catalog" onclick="closeModelDetail()">
-                            <span>← Back to All STT Models</span>
-                        </button>
-                        <div class="quick-switch-chips">
-                            <span style="font-size:0.75rem; color:var(--text-light); font-weight:700; margin-right:4px;">SWITCH MODEL:</span>
-                            <button class="quick-chip active" data-model="bodhan" onclick="selectModel('bodhan')">Bodhan 1.2B</button>
-                            <button class="quick-chip" data-model="sarvam_saarika" onclick="selectModel('sarvam_saarika')">Sarvam v1</button>
-                            <button class="quick-chip" data-model="gemini_flash" onclick="selectModel('gemini_flash')">Gemini 3.5</button>
-                            <button class="quick-chip" data-model="nemotron" onclick="selectModel('nemotron')">Nemotron</button>
-                            <button class="quick-chip" data-model="whisper_turbo" onclick="selectModel('whisper_turbo')">Whisper</button>
-                            <button class="quick-chip" data-model="qwen2_audio" onclick="selectModel('qwen2_audio')">Qwen2 7B</button>
+                        <div class="detail-nav-header">
+                            <button class="btn-back-catalog" id="btn-back-to-catalog" onclick="closeModelDetail()">
+                                <span>← Back to All Models</span>
+                            </button>
+                            <div class="quick-switch-chips">
+                                <span style="font-size:0.75rem; color:var(--text-light); font-weight:700; margin-right:4px;">SWITCH MODEL:</span>
+                                <button class="quick-chip active" data-model="bodhan" onclick="selectModel('bodhan')">Bodhan 1.2B</button>
+                                <button class="quick-chip" data-model="sarvam_saarika" onclick="selectModel('sarvam_saarika')">Sarvam v1</button>
+                                <button class="quick-chip" data-model="gemini_flash" onclick="selectModel('gemini_flash')">Gemini 3.5</button>
+                                <button class="quick-chip" data-model="nemotron" onclick="selectModel('nemotron')">Nemotron</button>
+                                <button class="quick-chip" data-model="whisper_turbo" onclick="selectModel('whisper_turbo')">Whisper</button>
+                                <button class="quick-chip" data-model="qwen2_audio" onclick="selectModel('qwen2_audio')">Qwen2 7B</button>
+                            </div>
                         </div>
-                    </div>
-
-<div class="mobile-model-bar" id="mobile-model-bar">
-                    <button class="mobile-model-chip active" data-model="bodhan"><span class="chip-dot dot-green"></span>Bodhan 1.2B</button>
-                    <button class="mobile-model-chip" data-model="sarvam_saarika"><span class="chip-dot dot-blue"></span>Sarvam v1</button>
-                    <button class="mobile-model-chip" data-model="gemini_flash"><span class="chip-dot dot-purple"></span>Gemini 3.5</button>
-                    <button class="mobile-model-chip" data-model="nemotron"><span class="chip-dot dot-amber"></span>Nemotron</button>
-                    <button class="mobile-model-chip" data-model="whisper_turbo"><span class="chip-dot dot-orange"></span>Whisper</button>
-                    <button class="mobile-model-chip" data-model="qwen2_audio"><span class="chip-dot dot-red"></span>Qwen2 7B</button>
-                </div>
-                <!-- Clean Compact Model Banner -->
+                        <!-- Clean Compact Model Banner -->
                 <section class="model-hero">
                     <div class="hero-header">
                         <div class="hero-title-group">
@@ -1064,14 +1180,14 @@
                         </div>
                     </div>
                 </section>
-                    </div> <!-- end of stt-model-detail -->
-                </div> <!-- end of view-telephony-stt -->
+                    </div>
+                </div>
 
                 <!-- =====================================================================
-                     GROUP 2: REAL-TIME ACCENT AI & SPEECH-TO-SPEECH (STS)
+                     VIEW 3: REAL-TIME ACCENT AI (Sanas.ai & S2S)
                      ===================================================================== -->
-
-<div id="view-accent-ai" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-accent">
+                <div id="view-cyber-research" class="cyber-view-pane hidden">
+                    
                     <!-- Playable American Accent Audio Demo -->
                     <div class="audio-showcase-card" style="margin-bottom: 20px;">
                         <div class="audio-showcase-header">
@@ -1379,9 +1495,14 @@
                             </div>
                         </div>
                     </section>
+                
                 </div>
 
                 <!-- =====================================================================
+                     VIEW 4: KURDISH & MULTILINGUAL TTS
+                     ===================================================================== -->
+                <div id="view-cyber-learning" class="cyber-view-pane hidden">
+                                    <!-- =====================================================================
                      MODULE 3: MULTILINGUAL & KURDISH SPEECH SYNTHESIS (TTS)
                      ===================================================================== -->
                 <div id="view-kurdish-tts" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-kurdish">
@@ -1503,8 +1624,13 @@
                         </div>
                     </section>
                 </div>
+                </div>
 
                 <!-- =====================================================================
+                     VIEW 5: TOOLS, SERVERS & TAKEAWAYS
+                     ===================================================================== -->
+                <div id="view-cyber-tools" class="cyber-view-pane hidden">
+                                    <!-- =====================================================================
                      MODULE 4: ENGINEERING JOURNAL, HARD REALITIES & TAKEAWAYS
                      ===================================================================== -->
                 <div id="view-engineering-journal" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-journal">
@@ -1636,10 +1762,11 @@
                         </div>
                     </section>
                 </div>
+                </div>
             </div>
         </main>
     </div>
 
-    <script src="/static/app.js?v=6"></script>
+    <script src="/static/app.js?v=8"></script>
 </body>
 </html>
