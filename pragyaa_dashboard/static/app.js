@@ -1029,12 +1029,15 @@ function setupGroupSwitching() {
 }
 
 function switchMainGroup(groupKey) {
-    // 1. Update Top Group Tabs Active State
+    // 1. Update Top Group Tabs Active State & ARIA
     document.querySelectorAll('.group-tab[data-group]').forEach(tab => {
-        if (tab.getAttribute('data-group') === groupKey) {
+        const isMatch = tab.getAttribute('data-group') === groupKey;
+        if (isMatch) {
             tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
         } else {
             tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
         }
     });
 
@@ -1047,7 +1050,7 @@ function switchMainGroup(groupKey) {
         }
     });
 
-    // If switching to Group 1, restore active state to current model
+    // If switching to Module 1, restore active state to current model
     if (groupKey === 'telephony-stt') {
         document.querySelectorAll('.model-nav-item').forEach(item => {
             if (item.getAttribute('data-model') === currentModel) {
@@ -1055,7 +1058,7 @@ function switchMainGroup(groupKey) {
             }
         });
     } else {
-        // Un-highlight model items when in Group 2 or 3
+        // Un-highlight model items when in Module 2, 3, or 4
         document.querySelectorAll('.model-nav-item').forEach(item => {
             item.classList.remove('active');
         });
@@ -1078,8 +1081,11 @@ function switchMainGroup(groupKey) {
             const spec = MODEL_SPECS[currentModel] || MODEL_SPECS.bodhan;
             crumbEl.innerText = `${spec.title} (${spec.params})`;
         } else if (groupKey === 'accent-ai') {
-            crumbEl.innerText = 'Group 2: Real-Time Accent AI & Sanas.ai Benchmark';
-
+            crumbEl.innerText = 'Module 2: Real-Time Accent AI (Sanas.ai & 7-Accent Bridge)';
+        } else if (groupKey === 'kurdish-tts') {
+            crumbEl.innerText = 'Module 3: Multilingual & Kurdish Speech Synthesis (MMS & F5-TTS)';
+        } else if (groupKey === 'engineering-journal') {
+            crumbEl.innerText = 'Module 4: Engineering Journal, Hard Realities & Production Lessons';
         }
     }
 

@@ -25,10 +25,10 @@
             </div>
 
                         <div class="sidebar-menu">
-                <!-- GROUP 1: TELEPHONY STT MODELS -->
+                <!-- MODULE 1: TELEPHONY STT MODELS -->
                 <div class="sidebar-group-header">
-                    <span class="group-header-text">1. Telephony STT Models</span>
-                    <span class="badge-mini blue">6 Tested</span>
+                    <span class="group-header-text">1. Telephony STT (6 Models)</span>
+                    <span class="badge-mini blue">8kHz</span>
                 </div>
                 
                 <!-- 1. Bodhan Indic-Core 1.2B -->
@@ -103,10 +103,10 @@
                     </div>
                 </div>
 
-                <!-- GROUP 2: ACCENT AI & S2S -->
+                <!-- MODULE 2: ACCENT AI & S2S -->
                 <div class="sidebar-group-header">
                     <span class="group-header-text">2. Real-Time Accent AI</span>
-                    <span class="badge-mini purple">Sanas & S2S</span>
+                    <span class="badge-mini purple">Sanas</span>
                 </div>
                 
                 <div class="sidebar-nav-item" id="nav-accent-sanas" data-group="accent-ai">
@@ -128,8 +128,60 @@
                 <div class="sidebar-nav-item" id="nav-accent-apps" data-group="accent-ai">
                     <span class="sidebar-item-icon">💻</span>
                     <div class="sidebar-item-text">
-                        <span class="sidebar-item-title">Desktop Apps & Tools</span>
+                        <span class="sidebar-item-title">Desktop Apps &amp; Tools</span>
                         <span class="sidebar-item-sub">Dubbing AI / Altered Studio</span>
+                    </div>
+                </div>
+
+                <!-- MODULE 3: KURDISH & MULTILINGUAL TTS -->
+                <div class="sidebar-group-header">
+                    <span class="group-header-text">3. Multilingual &amp; Kurdish</span>
+                    <span class="badge-mini green">4 Demos</span>
+                </div>
+
+                <div class="sidebar-nav-item" id="nav-kurdish-mms" data-group="kurdish-tts">
+                    <span class="sidebar-item-icon">🌍</span>
+                    <div class="sidebar-item-text">
+                        <span class="sidebar-item-title">Meta MMS VITS Server</span>
+                        <span class="sidebar-item-sub">Local Kurdish synthesis</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-nav-item" id="nav-kurdish-f5" data-group="kurdish-tts">
+                    <span class="sidebar-item-icon">🧬</span>
+                    <div class="sidebar-item-text">
+                        <span class="sidebar-item-title">F5-TTS Voice Cloning</span>
+                        <span class="sidebar-item-sub">Flow Matching models</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-nav-item" id="nav-kurdish-audio" data-group="kurdish-tts">
+                    <span class="sidebar-item-icon">🎧</span>
+                    <div class="sidebar-item-text">
+                        <span class="sidebar-item-title">Aranemini &amp; Audio8</span>
+                        <span class="sidebar-item-sub">Playable audio gallery</span>
+                    </div>
+                </div>
+
+                <!-- MODULE 4: ENGINEERING JOURNAL -->
+                <div class="sidebar-group-header">
+                    <span class="group-header-text">4. Engineering Journal</span>
+                    <span class="badge-mini cyan">Takeaways</span>
+                </div>
+
+                <div class="sidebar-nav-item" id="nav-journal-lessons" data-group="engineering-journal">
+                    <span class="sidebar-item-icon">💡</span>
+                    <div class="sidebar-item-text">
+                        <span class="sidebar-item-title">Production Lessons</span>
+                        <span class="sidebar-item-sub">The 8kHz &amp; Sanas truths</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-nav-item" id="nav-journal-commands" data-group="engineering-journal">
+                    <span class="sidebar-item-icon">🚀</span>
+                    <div class="sidebar-item-text">
+                        <span class="sidebar-item-title">Command Launcher</span>
+                        <span class="sidebar-item-sub">Direct terminal scripts</span>
                     </div>
                 </div>
             </div>
@@ -173,20 +225,30 @@
                 </div>
             </header>
 
-            <!-- PRIMARY TOP GROUP NAVIGATION BAR -->
-            <div class="primary-group-bar" id="primary-group-bar">
-                <button class="group-tab active" data-group="telephony-stt" id="tab-group-telephony">
+            <!-- PRIMARY TOP MODULE NAVIGATION BAR -->
+            <div class="primary-group-bar" id="primary-group-bar" role="tablist" aria-label="AI Speech Engineering Modules">
+                <button class="group-tab active" data-group="telephony-stt" id="tab-module-telephony" role="tab" aria-selected="true" type="button">
                     <span class="group-icon">📊</span>
-                    <span>Group 1: 8kHz Telephony STT Models</span>
-                    <span class="badge-mini blue">6 Tested</span>
+                    <span>1. Telephony STT (8kHz)</span>
+                    <span class="badge-mini blue">6 Models</span>
                 </button>
-                <button class="group-tab group-tab-accent" data-group="accent-ai" id="tab-group-accent">
+                <button class="group-tab group-tab-accent" data-group="accent-ai" id="tab-module-accent" role="tab" aria-selected="false" type="button">
                     <span class="group-icon">🎙️</span>
-                    <span>Group 2: Real-Time Accent AI (Sanas vs Open-Source)</span>
-                    <span class="badge-mini purple">Deep Dive</span>
+                    <span>2. Real-Time Accent AI</span>
+                    <span class="badge-mini purple">Sanas &amp; S2S</span>
                 </button>
-                <a href="/static/research_dossier.html" target="_blank" class="group-tab group-link" id="link-dossier" title="Open complete printable dossier with PDF & Word exports">
-                    <span>📑 Full Research Dossier ↗</span>
+                <button class="group-tab group-tab-kurdish" data-group="kurdish-tts" id="tab-module-kurdish" role="tab" aria-selected="false" type="button">
+                    <span class="group-icon">🌍</span>
+                    <span>3. Multilingual &amp; Kurdish</span>
+                    <span class="badge-mini green">4 Audio Demos</span>
+                </button>
+                <button class="group-tab group-tab-journal" data-group="engineering-journal" id="tab-module-journal" role="tab" aria-selected="false" type="button">
+                    <span class="group-icon">📓</span>
+                    <span>4. Engineering Journal</span>
+                    <span class="badge-mini cyan">Takeaways &amp; Logs</span>
+                </button>
+                <a href="/static/research_dossier.html" target="_blank" class="group-tab group-link" id="link-dossier" title="Open complete printable research dossier">
+                    <span>📑 Full Dossier ↗</span>
                 </a>
             </div>
 
@@ -195,7 +257,7 @@
                 <!-- =====================================================================
                      GROUP 1: 8kHz TELEPHONY STT EVALUATION MODELS
                      ===================================================================== -->
-                <div id="view-telephony-stt" class="main-group-view">
+                <div id="view-telephony-stt" class="main-group-view" role="tabpanel" aria-labelledby="tab-module-telephony">
 
                 <!-- Mobile Horizontal Fast Model Switcher (Visible on Phone) -->
                 <div class="mobile-model-bar" id="mobile-model-bar">
@@ -814,7 +876,16 @@
                 <!-- =====================================================================
                      GROUP 2: REAL-TIME ACCENT AI & SPEECH-TO-SPEECH (STS)
                      ===================================================================== -->
-                <div id="view-accent-ai" class="main-group-view hidden">
+                <div id="view-accent-ai" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-accent">
+                    <!-- Playable American Accent Audio Demo -->
+                    <div class="audio-showcase-card" style="margin-bottom: 20px;">
+                        <div class="audio-showcase-header">
+                            <span class="audio-showcase-title">🎧 Listen: Real-Time Accent Bridge Demo</span>
+                            <span class="badge-mini blue">Local Output</span>
+                        </div>
+                        <p class="audio-showcase-desc">Real audio output generated by our local bridge pipeline (Kokoro-82M / Multi-TLD engine) synthesizing fluent American business English for Zoom.</p>
+                        <audio controls class="audio-showcase-player" src="/static/audio/test_american_accent.mp3" preload="metadata"></audio>
+                    </div>
                     <!-- Accent AI Hero Banner -->
                     <section class="model-hero" style="border-left: 4px solid #7c3aed;">
                         <div class="hero-header">
@@ -1114,7 +1185,263 @@
                         </div>
                     </section>
                 </div>
-</div>
+
+                <!-- =====================================================================
+                     MODULE 3: MULTILINGUAL & KURDISH SPEECH SYNTHESIS (TTS)
+                     ===================================================================== -->
+                <div id="view-kurdish-tts" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-kurdish">
+                    <!-- Kurdish Hero Banner -->
+                    <section class="model-hero" style="border-left: 4px solid #059669;">
+                        <div class="hero-header">
+                            <div class="hero-title-group">
+                                <div class="hero-top-badge" style="color: #059669; background: rgba(16, 185, 129, 0.1);">LOW-RESOURCE MULTILINGUAL SPEECH &amp; ZERO-SHOT CLONING</div>
+                                <h1>🌍 Module 3: Multilingual &amp; Kurdish TTS Research</h1>
+                                <p class="hero-desc">
+                                    Engineering evaluation of zero-shot voice cloning, non-Latin / RTL scripts (Kurdish Sorani &amp; Kurmanji), Meta MMS, F5-TTS Flow Matching, and local speech generation servers.
+                                </p>
+                            </div>
+                            <div class="hero-meta-badges">
+                                <span class="tag badge-success">Meta MMS VITS (Local Server)</span>
+                                <span class="tag">F5-TTS Flow Matching</span>
+                                <span class="tag">Aranemini &amp; Audio8 Checkpoints</span>
+                                <span class="tag">4 Playable Audio Demos</span>
+                                <span class="tag">Zero-Shot Voice Cloning</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Interactive Playable Audio Gallery -->
+                    <section class="card-section" style="padding:24px; background:var(--bg-surface);">
+                        <div class="card-section-header" style="margin-bottom:16px;">
+                            <div>
+                                <span class="sub-label">Synthesized Audio Gallery</span>
+                                <h2 class="card-title">Generated Audio Samples (Click to Listen)</h2>
+                            </div>
+                            <span class="legend-tip">🎧 Listen to the direct audio outputs generated in this repository</span>
+                        </div>
+
+                        <div class="audio-gallery-grid">
+                            <!-- Sample 1: Aranemini Female -->
+                            <div class="audio-showcase-card">
+                                <div class="audio-showcase-header">
+                                    <span class="audio-showcase-title">🎙️ Aranemini Studio Female</span>
+                                    <span class="badge-mini green">Studio High-Fi</span>
+                                </div>
+                                <p class="audio-showcase-desc">High-fidelity female Kurdish voice synthesized with clean prosody and native phonetic articulation.</p>
+                                <audio controls class="audio-showcase-player" src="/static/audio/aranemini_output_female.wav" preload="metadata"></audio>
+                            </div>
+
+                            <!-- Sample 2: Aranemini Male -->
+                            <div class="audio-showcase-card">
+                                <div class="audio-showcase-header">
+                                    <span class="audio-showcase-title">🎙️ Aranemini Studio Male</span>
+                                    <span class="badge-mini green">Studio High-Fi</span>
+                                </div>
+                                <p class="audio-showcase-desc">Deep male studio announcer voice tuned for formal broadcasts and long-form narrative synthesis.</p>
+                                <audio controls class="audio-showcase-player" src="/static/audio/aranemini_output_studio_male.wav" preload="metadata"></audio>
+                            </div>
+
+                            <!-- Sample 3: Audio8 Cloned Voice -->
+                            <div class="audio-showcase-card">
+                                <div class="audio-showcase-header">
+                                    <span class="audio-showcase-title">🧬 Audio8 Cloned Voice</span>
+                                    <span class="badge-mini purple">Zero-Shot Clone</span>
+                                </div>
+                                <p class="audio-showcase-desc">Target voice cloned from a 3-second reference sample (s01) using acoustic embedding matching.</p>
+                                <audio controls class="audio-showcase-player" src="/static/audio/audio8_clone_s01.wav" preload="metadata"></audio>
+                            </div>
+
+                            <!-- Sample 4: Meta MMS Sorani -->
+                            <div class="audio-showcase-card">
+                                <div class="audio-showcase-header">
+                                    <span class="audio-showcase-title">📻 Meta MMS Sorani Test</span>
+                                    <span class="badge-mini blue">VITS Kurdish</span>
+                                </div>
+                                <p class="audio-showcase-desc">Meta MMS end-to-end VITS model synthesizing Central Kurdish (Sorani) dialect text.</p>
+                                <audio controls class="audio-showcase-player" src="/static/audio/kurdishtts_test_sorani.wav" preload="metadata"></audio>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Kurdish Architecture & Model Breakdown -->
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px;">
+                        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-md); border:1px solid var(--border-main); box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-main);">1. Meta MMS (Massively Multilingual)</h3>
+                                <span class="badge-mini blue">Local Server</span>
+                            </div>
+                            <p style="font-size:0.875rem; color:var(--text-muted); line-height:1.5; margin-bottom:12px;">
+                                End-to-end VITS architecture trained across 1,400+ languages. In this repo under <code>mms_kurdish_tts_server/</code>, we built a standalone FastAPI server that generates Sorani and Kurmanji speech with zero cloud dependencies.
+                            </p>
+                            <span class="badge-pill blue">FastAPI Server in Repo</span>
+                        </div>
+
+                        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-md); border:1px solid var(--border-main); box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-main);">2. F5-TTS (Flow Matching)</h3>
+                                <span class="badge-mini purple">Voice Cloning</span>
+                            </div>
+                            <p style="font-size:0.875rem; color:var(--text-muted); line-height:1.5; margin-bottom:12px;">
+                                Non-autoregressive Flow Matching model. Eliminates the repetitive looping artifacts common in diffusion models. We tested zero-shot cloning in <code>f5_kurdish_tts_colab.ipynb</code> with custom reference audio prompts.
+                            </p>
+                            <span class="badge-pill purple">Colab Notebook Verified</span>
+                        </div>
+
+                        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-md); border:1px solid var(--border-main); box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-main);">3. Aranemini &amp; Audio8 Engines</h3>
+                                <span class="badge-mini green">Native Checkpoints</span>
+                            </div>
+                            <p style="font-size:0.875rem; color:var(--text-muted); line-height:1.5; margin-bottom:12px;">
+                                Native Kurdish speech datasets fine-tuned for regional phonetics and intonation curves. Evaluated in <code>aranemini_kurdish_tts_colab.ipynb</code> and <code>audio8_kurdish_tts_colab.ipynb</code>.
+                            </p>
+                            <span class="badge-pill green">Native Regional Phonetics</span>
+                        </div>
+                    </div>
+
+                    <!-- Spectrogram / Acoustic Comparison -->
+                    <section class="card-section" style="padding:24px; background:var(--bg-surface);">
+                        <h2 class="card-title" style="margin-bottom:6px;">Acoustic Spectrogram &amp; Synthesis Comparison</h2>
+                        <p class="box-sub" style="margin-bottom:16px;">Visual spectrogram comparison showing frequency distribution and harmonic preservation across models.</p>
+                        <div style="text-align:center; background:#0b0f19; padding:16px; border-radius:var(--radius-md); overflow:hidden;">
+                            <img src="/static/kurdish_tts_comparison.png" alt="Kurdish TTS Comparison" style="max-width:100%; height:auto; border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.4);" />
+                        </div>
+                    </section>
+                </div>
+
+                <!-- =====================================================================
+                     MODULE 4: ENGINEERING JOURNAL, HARD REALITIES & TAKEAWAYS
+                     ===================================================================== -->
+                <div id="view-engineering-journal" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-journal">
+                    <!-- Journal Hero Banner -->
+                    <section class="model-hero" style="border-left: 4px solid #0284c7;">
+                        <div class="hero-header">
+                            <div class="hero-title-group">
+                                <div class="hero-top-badge" style="color: #0284c7; background: rgba(2, 132, 199, 0.1);">AI SPEECH ENGINEERING JOURNAL &amp; PRODUCTION LESSONS</div>
+                                <h1>📓 Module 4: Engineering Journal &amp; Research Takeaways</h1>
+                                <p class="hero-desc">
+                                    Recording everything learned, benchmarked, and implemented: What worked, what failed, the hard truths about real-time speech AI, production benchmarks on Tesla T4, and developer command cheat-sheet.
+                                </p>
+                            </div>
+                            <div class="hero-meta-badges">
+                                <span class="tag badge-info">Production Benchmarks</span>
+                                <span class="tag">Hardware Rig: Tesla T4 FP16</span>
+                                <span class="tag">Sanas vs LLM Realities</span>
+                                <span class="tag">Chrome Modern Web Standards</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- The 4 Core "Hard Reality" Cards -->
+                    <div class="journal-grid">
+                        <!-- Card 1 -->
+                        <div class="journal-card">
+                            <div class="journal-card-header">
+                                <span class="journal-icon-badge">📞</span>
+                                <span class="journal-card-title">1. The 8kHz Narrowband Telephony Trap</span>
+                            </div>
+                            <div class="journal-card-body">
+                                <p>Standard speech models trained on YouTube or podcasts (16kHz–48kHz) fail dramatically on real phone calls:</p>
+                                <ul>
+                                    <li><b>G.711 Compression:</b> Telephone networks cut off all audio above 3,400 Hz and inject line quantization noise.</li>
+                                    <li><b>Whisper Looping Trap:</b> OpenAI Whisper's autoregressive decoder gets trapped in infinite repetition loops on telephone hiss (e.g. <i>"पहला वाली..."</i>) without VAD suppression.</li>
+                                    <li><b>Nemotron Drop Risk:</b> NVIDIA Nemotron dropped over 85% of words because its causal RNN-T expected clean 16kHz studio mics.</li>
+                                    <li><b>Bodhan 1.2B Victory:</b> FastConformer trained on Indian ULCA telephony datasets handled 8kHz natively (8.8% WER, 91.2% accuracy).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="journal-card">
+                            <div class="journal-card-header">
+                                <span class="journal-icon-badge">🎙️</span>
+                                <span class="journal-card-title">2. Sanas.ai vs The World (Hard Truth)</span>
+                            </div>
+                            <div class="journal-card-body">
+                                <p>Can open-source or LLMs beat Sanas.ai right now? Here is the engineering reality:</p>
+                                <ul>
+                                    <li><b>Signal-Level DSP:</b> Sanas does NOT convert speech to text. It alters acoustic formant resonances ($F_1, F_2, F_3$) directly in audio frames under 80ms–100ms.</li>
+                                    <li><b>Why Gemini Live Can't Replace It:</b> Gemini Multimodal Live API accumulates audio tokens in chunks (500ms–1.2s lag) and completely replaces your voice with a bot persona. Video calls suffer lip-sync mismatch and crosstalk.</li>
+                                    <li><b>Why RVC Fails:</b> RVC only swaps timbre/pitch; it does NOT neutralize vowels. It outputs an American tone with Indian pronunciation.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="journal-card">
+                            <div class="journal-card-header">
+                                <span class="journal-icon-badge">⚡</span>
+                                <span class="journal-card-title">3. The Working "Jugad" (Local Cascade)</span>
+                            </div>
+                            <div class="journal-card-body">
+                                <p>How we solved multi-accent live calls for free in this repository:</p>
+                                <ul>
+                                    <li><b>Engineered Pipeline:</b> Silero VAD (speech-pause trigger) + Faster-Whisper (INT8 quantized) + Multi-TLD TTS engine.</li>
+                                    <li><b>Selectable Accents:</b> 7 target accents (US, UK, AU, CA, IE, ZA, IN) selectable at runtime via <code>live_accent_zoom_bridge.py</code>.</li>
+                                    <li><b>Virtual Cable Routing:</b> Audio routes natively through <b>VB-Audio Virtual Cable</b> into Zoom, Google Meet, or Microsoft Teams as a physical mic.</li>
+                                    <li><b>Zero Cost:</b> 100% offline, private, runs on laptop CPU or consumer GPU.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="journal-card">
+                            <div class="journal-card-header">
+                                <span class="journal-icon-badge">🌍</span>
+                                <span class="journal-card-title">4. Low-Resource &amp; RTL Speech Synthesis</span>
+                            </div>
+                            <div class="journal-card-body">
+                                <p>Key findings from our Kurdish (Sorani/Kurmanji) TTS experiments:</p>
+                                <ul>
+                                    <li><b>VITS End-to-End:</b> Meta MMS provides the best lightweight zero-dependency architecture for local server deployment.</li>
+                                    <li><b>Flow Matching Naturalness:</b> F5-TTS non-autoregressive flow matching eliminates the robotic jitter common in earlier diffusion models.</li>
+                                    <li><b>Script Normalization:</b> Arabic-script Kurdish (Sorani) requires unicode normalization before phonetic tokenization.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Developer Command & Action Launcher -->
+                    <section class="card-section" style="padding:24px; background:var(--bg-surface);">
+                        <h2 class="card-title" style="margin-bottom:6px;">🚀 Quick Command Launcher (Run Anything from Terminal)</h2>
+                        <p class="box-sub" style="margin-bottom:16px;">Direct PowerShell commands to launch the services, models, and bridges built in this workspace:</p>
+
+                        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">
+                            <div style="border:1px solid var(--border-main); padding:16px; border-radius:var(--radius-md); background:var(--bg-subtle);">
+                                <strong style="color:var(--text-main); font-size:0.92rem;">📊 Launch Evaluation Web Dashboard:</strong>
+                                <div class="terminal-command-box">
+                                    <code>python run_dashboard.py</code>
+                                </div>
+                                <span style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; display:block;">Serves on http://localhost:8501</span>
+                            </div>
+
+                            <div style="border:1px solid var(--border-main); padding:16px; border-radius:var(--radius-md); background:var(--bg-subtle);">
+                                <strong style="color:var(--text-main); font-size:0.92rem;">🎙️ Start 7-Accent Live Zoom Bridge:</strong>
+                                <div class="terminal-command-box">
+                                    <code>python live_accent_zoom_bridge.py</code>
+                                </div>
+                                <span style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; display:block;">Or double-click start_live_accent_bridge.bat</span>
+                            </div>
+
+                            <div style="border:1px solid var(--border-main); padding:16px; border-radius:var(--radius-md); background:var(--bg-subtle);">
+                                <strong style="color:var(--text-main); font-size:0.92rem;">🌍 Start Meta MMS Kurdish TTS Server:</strong>
+                                <div class="terminal-command-box">
+                                    <code>python mms_kurdish_tts_server/app.py</code>
+                                </div>
+                                <span style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; display:block;">FastAPI local speech synthesis server</span>
+                            </div>
+
+                            <div style="border:1px solid var(--border-main); padding:16px; border-radius:var(--radius-md); background:var(--bg-subtle);">
+                                <strong style="color:var(--text-main); font-size:0.92rem;">🌐 Search Chrome Modern Web Guidance:</strong>
+                                <div class="terminal-command-box">
+                                    <code>npx modern-web-guidance search "tabs"</code>
+                                </div>
+                                <span style="font-size:0.75rem; color:var(--text-muted); margin-top:6px; display:block;">Installed workspace skill &amp; IDE plugin</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </main>
     </div>
 
