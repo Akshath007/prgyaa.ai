@@ -258,9 +258,202 @@
                      GROUP 1: 8kHz TELEPHONY STT EVALUATION MODELS
                      ===================================================================== -->
                 <div id="view-telephony-stt" class="main-group-view" role="tabpanel" aria-labelledby="tab-module-telephony">
+                    <!-- CATALOG VIEW: Grid of 6 Models -->
+                    <div id="stt-catalog-view" class="stt-catalog-wrapper">
+                    <!-- Category Intro Header -->
+                    <div class="category-intro">
+                        <h2 class="category-intro-title">🎙️ Speech to Text Models (8kHz Telephony Benchmark)</h2>
+                        <p class="category-intro-sub">Click any model below to explore its architecture, telephony accuracy, live audio player, and second-by-second transcripts.</p>
+                    </div>
 
-                <!-- Mobile Horizontal Fast Model Switcher (Visible on Phone) -->
-                <div class="mobile-model-bar" id="mobile-model-bar">
+                    <!-- 6 Model Cards Grid -->
+<div class="catalog-grid" id="stt-models-catalog">
+
+        <div class="catalog-card" data-model="bodhan" onclick="openModelDetail('bodhan')">
+            <div class="catalog-card-header">
+                <span class="catalog-vendor">Bodhan AI & IIT Madras</span>
+                <span class="badge-mini green">91.2% Accuracy • Top Open-Source</span>
+            </div>
+            <h3 class="catalog-title">Bodhan Indic-Transcribe-Core</h3>
+            <p class="catalog-desc">Trained natively on Indian telephony & ULCA datasets. Robust against 8kHz narrowband cutoff and G.711 compression hiss without dropping words or looping.</p>
+            <div class="catalog-stats-row">
+                <div class="stat-pill">
+                    <span class="stat-label">WER:</span>
+                    <strong class="stat-value">8.8%</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Latency:</span>
+                    <strong class="stat-value">41.98s (0.145x RTF)</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Arch:</span>
+                    <span class="stat-value">FastConformer</span>
+                </div>
+            </div>
+            <div class="catalog-card-footer">
+                <span class="catalog-status">Production Ready (Apache 2.0)</span>
+                <span class="catalog-action">Inspect Model Scorecard →</span>
+            </div>
+        </div>
+
+        <div class="catalog-card" data-model="sarvam_saarika" onclick="openModelDetail('sarvam_saarika')">
+            <div class="catalog-card-header">
+                <span class="catalog-vendor">Sarvam AI</span>
+                <span class="badge-mini blue">92.5% Accuracy • Top Cloud API</span>
+            </div>
+            <h3 class="catalog-title">Sarvam Saarika v1</h3>
+            <p class="catalog-desc">High-performance enterprise API tuned for Indian customer support telephony. 400ms WebSocket streaming with high entity recognition.</p>
+            <div class="catalog-stats-row">
+                <div class="stat-pill">
+                    <span class="stat-label">WER:</span>
+                    <strong class="stat-value">7.5%</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Latency:</span>
+                    <strong class="stat-value">18.00s (0.062x RTF)</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Arch:</span>
+                    <span class="stat-value">Conformer-RNNT (Proprietary)</span>
+                </div>
+            </div>
+            <div class="catalog-card-footer">
+                <span class="catalog-status">Commercial Cloud (~₹0.10/min)</span>
+                <span class="catalog-action">Inspect Model Scorecard →</span>
+            </div>
+        </div>
+
+        <div class="catalog-card" data-model="gemini_flash" onclick="openModelDetail('gemini_flash')">
+            <div class="catalog-card-header">
+                <span class="catalog-vendor">Google Cloud (Vertex AI)</span>
+                <span class="badge-mini purple">97.9% Accuracy • Best Quality</span>
+            </div>
+            <h3 class="catalog-title">Google Gemini 3.5 Flash</h3>
+            <p class="catalog-desc">Used as the benchmark ground truth reference. Deep world knowledge and contextual recovery of Indian entities and conversational Hinglish.</p>
+            <div class="catalog-stats-row">
+                <div class="stat-pill">
+                    <span class="stat-label">WER:</span>
+                    <strong class="stat-value">2.1%</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Latency:</span>
+                    <strong class="stat-value">163.20s (API Queue)</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Arch:</span>
+                    <span class="stat-value">Frontier Multimodal Audio-LLM</span>
+                </div>
+            </div>
+            <div class="catalog-card-footer">
+                <span class="catalog-status">Cloud Reference</span>
+                <span class="catalog-action">Inspect Model Scorecard →</span>
+            </div>
+        </div>
+
+        <div class="catalog-card" data-model="nemotron" onclick="openModelDetail('nemotron')">
+            <div class="catalog-card-header">
+                <span class="catalog-vendor">NVIDIA NeMo</span>
+                <span class="badge-mini amber">21.5% Accuracy • 16kHz Only</span>
+            </div>
+            <h3 class="catalog-title">NVIDIA Nemotron-Hinglish-v12</h3>
+            <p class="catalog-desc">Ultra-fast on 16kHz clean studio mics (80ms streaming). Collapses on 8kHz telephone audio lines, dropping over 85% of spoken words.</p>
+            <div class="catalog-stats-row">
+                <div class="stat-pill">
+                    <span class="stat-label">WER:</span>
+                    <strong class="stat-value">78.5%</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Latency:</span>
+                    <strong class="stat-value">8.10s (0.028x RTF)</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Arch:</span>
+                    <span class="stat-value">FastConformer-RNNT</span>
+                </div>
+            </div>
+            <div class="catalog-card-footer">
+                <span class="catalog-status">Clean Mic Streaming Only</span>
+                <span class="catalog-action">Inspect Model Scorecard →</span>
+            </div>
+        </div>
+
+        <div class="catalog-card" data-model="whisper_turbo" onclick="openModelDetail('whisper_turbo')">
+            <div class="catalog-card-header">
+                <span class="catalog-vendor">OpenAI</span>
+                <span class="badge-mini orange">35.8% Accuracy • Looping Risk</span>
+            </div>
+            <h3 class="catalog-title">OpenAI Whisper-Large-v3-Turbo</h3>
+            <p class="catalog-desc">Prone to autoregressive hallucination and infinite repetition loops on 8kHz telephone line hiss without strict voice activity suppression.</p>
+            <div class="catalog-stats-row">
+                <div class="stat-pill">
+                    <span class="stat-label">WER:</span>
+                    <strong class="stat-value">64.2%</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Latency:</span>
+                    <strong class="stat-value">14.50s (0.050x RTF)</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Arch:</span>
+                    <span class="stat-value">Pruned Transformer Encoder-Decoder</span>
+                </div>
+            </div>
+            <div class="catalog-card-footer">
+                <span class="catalog-status">Needs High-Pass VAD</span>
+                <span class="catalog-action">Inspect Model Scorecard →</span>
+            </div>
+        </div>
+
+        <div class="catalog-card" data-model="qwen2_audio" onclick="openModelDetail('qwen2_audio')">
+            <div class="catalog-card-header">
+                <span class="catalog-vendor">Alibaba Cloud</span>
+                <span class="badge-mini red">0.0% Accuracy • Hindi Failure</span>
+            </div>
+            <h3 class="catalog-title">Alibaba Qwen2-Audio-7B</h3>
+            <p class="catalog-desc">Failed to transcribe conversational Hindi and Hinglish telephone calls, producing hallucinated English and non-existent dialogues.</p>
+            <div class="catalog-stats-row">
+                <div class="stat-pill">
+                    <span class="stat-label">WER:</span>
+                    <strong class="stat-value">100%</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Latency:</span>
+                    <strong class="stat-value">48.20s</strong>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Arch:</span>
+                    <span class="stat-value">Audio-LLM (7 Billion)</span>
+                </div>
+            </div>
+            <div class="catalog-card-footer">
+                <span class="catalog-status">Unsupported for Indian STT</span>
+                <span class="catalog-action">Inspect Model Scorecard →</span>
+            </div>
+        </div>
+</div>
+
+                    </div>
+
+                    <!-- DETAIL VIEW: Single Model Deep Dive (Opened on Click) -->
+                    <div id="stt-model-detail" class="model-detail-wrapper hidden">
+
+                    <!-- Back Button & Quick Switcher -->
+                    <div class="detail-nav-header">
+                        <button class="btn-back-catalog" id="btn-back-to-catalog" onclick="closeModelDetail()">
+                            <span>← Back to All STT Models</span>
+                        </button>
+                        <div class="quick-switch-chips">
+                            <span style="font-size:0.75rem; color:var(--text-light); font-weight:700; margin-right:4px;">SWITCH MODEL:</span>
+                            <button class="quick-chip active" data-model="bodhan" onclick="selectModel('bodhan')">Bodhan 1.2B</button>
+                            <button class="quick-chip" data-model="sarvam_saarika" onclick="selectModel('sarvam_saarika')">Sarvam v1</button>
+                            <button class="quick-chip" data-model="gemini_flash" onclick="selectModel('gemini_flash')">Gemini 3.5</button>
+                            <button class="quick-chip" data-model="nemotron" onclick="selectModel('nemotron')">Nemotron</button>
+                            <button class="quick-chip" data-model="whisper_turbo" onclick="selectModel('whisper_turbo')">Whisper</button>
+                            <button class="quick-chip" data-model="qwen2_audio" onclick="selectModel('qwen2_audio')">Qwen2 7B</button>
+                        </div>
+                    </div>
+
+<div class="mobile-model-bar" id="mobile-model-bar">
                     <button class="mobile-model-chip active" data-model="bodhan"><span class="chip-dot dot-green"></span>Bodhan 1.2B</button>
                     <button class="mobile-model-chip" data-model="sarvam_saarika"><span class="chip-dot dot-blue"></span>Sarvam v1</button>
                     <button class="mobile-model-chip" data-model="gemini_flash"><span class="chip-dot dot-purple"></span>Gemini 3.5</button>
@@ -871,12 +1064,14 @@
                         </div>
                     </div>
                 </section>
-                </div>
+                    </div> <!-- end of stt-model-detail -->
+                </div> <!-- end of view-telephony-stt -->
 
                 <!-- =====================================================================
                      GROUP 2: REAL-TIME ACCENT AI & SPEECH-TO-SPEECH (STS)
                      ===================================================================== -->
-                <div id="view-accent-ai" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-accent">
+
+<div id="view-accent-ai" class="main-group-view hidden" role="tabpanel" aria-labelledby="tab-module-accent">
                     <!-- Playable American Accent Audio Demo -->
                     <div class="audio-showcase-card" style="margin-bottom: 20px;">
                         <div class="audio-showcase-header">

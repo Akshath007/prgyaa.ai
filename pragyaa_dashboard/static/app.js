@@ -311,7 +311,7 @@ function selectModel(modelKey) {
         }
     });
 
-    // 3. Update Mobile Quick-Model Chips Active State
+    // 3. Update Mobile Quick-Model Chips & Detail Header Quick Chips
     document.querySelectorAll('.mobile-model-chip').forEach(chip => {
         if (chip.getAttribute('data-model') === modelKey) {
             chip.classList.add('active');
@@ -320,6 +320,22 @@ function selectModel(modelKey) {
             chip.classList.remove('active');
         }
     });
+
+    document.querySelectorAll('.quick-chip').forEach(chip => {
+        if (chip.getAttribute('data-model') === modelKey) {
+            chip.classList.add('active');
+        } else {
+            chip.classList.remove('active');
+        }
+    });
+
+    // If detail view is currently hidden, reveal it
+    const catalogView = document.getElementById('stt-catalog-view');
+    const detailView = document.getElementById('stt-model-detail');
+    if (catalogView && detailView && detailView.classList.contains('hidden')) {
+        catalogView.classList.add('hidden');
+        detailView.classList.remove('hidden');
+    }
 
     // 4. Auto-close mobile drawer if open
     const sidebar = document.querySelector('.sidebar');
@@ -1028,7 +1044,14 @@ function setupGroupSwitching() {
     });
 }
 
-function switchMainGroup(groupKey) {
+function switchMainGroup(groupKey, resetCatalog = true) {
+    if (groupKey === 'telephony-stt' && resetCatalog) {
+        // Show catalog grid when switching into Module 1 from top bar
+        const catalogView = document.getElementById('stt-catalog-view');
+        const detailView = document.getElementById('stt-model-detail');
+        if (catalogView) catalogView.classList.remove('hidden');
+        if (detailView) detailView.classList.add('hidden');
+    }
     // 1. Update Top Group Tabs Active State & ARIA
     document.querySelectorAll('.group-tab[data-group]').forEach(tab => {
         const isMatch = tab.getAttribute('data-group') === groupKey;
@@ -1111,3 +1134,47 @@ function switchMainGroup(groupKey) {
         }, 50);
     }
 }
+
+
+// =====================================================================
+// INTERACTIVE CATALOG & DRILL-DOWN SHOWCASE
+// =====================================================================
+function openModelDetail(modelKey) {
+    if (!MODEL_SPECS[modelKey]) return;
+    
+    // 1. Ensure Module 1 view is active
+    switchMainGroup('telephony-stt', false);
+
+    // 2. Hide catalog grid, show detail view
+    const catalogView = document.getElementById('stt-catalog-view');
+    const detailView = document.getElementById('stt-model-detail');
+    if (catalogView) catalogView.classList.add('hidden');
+    if (detailView) detailView.classList.remove('hidden');
+
+    // 3. Select and display model
+    selectModel(modelKey);
+
+    // 4. Scroll smoothly to top
+    const scrollArea = document.querySelector('.scroll-area');
+    if (scrollArea) scrollArea.scrollTop = 0;
+}
+
+function closeModelDetail() {
+    // 1. Show catalog grid, hide detail view
+    const catalogView = document.getElementById('stt-catalog-view');
+    const detailView = document.getElementById('stt-model-detail');
+    if (catalogView) catalogView.classList.remove('hidden');
+    if (detailView) detailView.classList.add('hidden');
+
+    // 2. Update Breadcrumb
+    const crumbEl = document.getElementById('crumb-active-model');
+    if (crumbEl) {
+        crumbEl.innerText = 'Module 1: Speech to Text (8kHz Telephony Models)';
+    }
+
+    // 3. Scroll smoothly to top
+    const scrollArea = document.querySelector('.scroll-area');
+    if (scrollArea) scrollArea.scrollTop = 0;
+}
+window.openModelDetail = openModelDetail;
+window.closeModelDetail = closeModelDetail;
